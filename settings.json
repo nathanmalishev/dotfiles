@@ -1,0 +1,61 @@
+// Place your settings in this file to overwrite the default settings
+{
+    "editor.fontFamily": "Hack, Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontSize": 14,
+    "eslint.options": {
+        "parserOptions": {
+        "ecmaVersion": 8,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "experimentalObjectRestSpread": true,
+            "jsx": true
+            }
+        },
+        "env": {
+            "es6": true,
+            "node": true
+        },
+        "rules": {
+            // "semi": [2, "never"]
+        }
+    },
+    "editor.tabSize": 2,
+    "editor.rulers":[120],
+    "files.associations": {
+        // "*.js":"javascript"
+        // "*.js":"es6"
+    },
+    "todoIgnore": ["**/node_modules/**"]
+,
+"typescript.check.tscVersion": false,
+"go.lintTool":"gometalinter",
+"editor.quickSuggestions": true,
+"workbench.statusBar.visible": true,
+"window.zoomLevel": 0,
+"vsicons.dontShowNewVersionMessage": true,
+"vsicons.projectDetection.autoReload": true,
+"java.errors.incompleteClasspath.severity": "ignore",
+"debug.inlineValues": true,
+"editor.wordWrap": true,
+"editor.snippetSuggestions": "none",
+"workbench.sideBar.location": "left",
+"editor.lineNumbers": "relative",
+"vim.easymotion": true,
+"vim.leader": " ",
+
+/* git lens */
+"gitlens.blame.annotation.activeLine": "off",
+"gitlens.codeLens.visibility": "ondemand",
+"workbench.colorTheme": "Visual Studio Dark",
+"workbench.iconTheme": "vs-seti",
+"[cpp]": {
+  "editor.quickSuggestions": false
+},
+"[c]": {
+  "editor.quickSuggestions": false
+}
+/* mini map
+"editor.minimap.enabled": true,
+"editor.minimap.renderCharacters": false
+*/
+}
