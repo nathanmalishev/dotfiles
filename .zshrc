@@ -94,3 +94,5 @@ eval "$(rbenv init -)"
 # set -o vi
 set -o vi
 source /Users/nathan/Coding/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+export PATH="$HOME/.yarn/bin:$PATH"

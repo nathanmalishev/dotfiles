@@ -20,7 +20,7 @@ module.exports = {
     cursorBlink: false,
 
     // color of the text
-    foregroundColor: 'f2f2f2',
+    foregroundColor: '#f2f2f2',
 
     // terminal background color
     backgroundColor: '#1f293b',
