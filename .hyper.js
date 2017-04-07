@@ -51,7 +51,7 @@ module.exports = {
     // an array here instead of a color map object
     colors: {
       black: '#000000',
-      red: '#bf616a',
+      red: '#ff6a6a',
       green: '#11cc00',
       yellow: '#ffd500',
       blue: '#8497bd',
@@ -104,25 +104,11 @@ module.exports = {
   //   `hyperpower`
   //   `@company/project`
   //   `project#1.0.1`
-  plugins: ['hypercwd', "hyper-pane"],
+  plugins: ["hypercwd","hyper-pane"],
 
   // in development, you can create a directory under
   // `~/.hyper_plugins/local/` and include it here
   // to load it and avoid it being `npm install`ed
   localPlugins: [],
 
-  // hyper-pane configjk
-  paneNavigation:{
-    hotkeys: {
-      navigation : {
-        up: 'meta+shift+up',
-        down: 'meta+shift+down',
-        left: 'meta+shift+left',
-        right: 'meta+shift+right'
-      },
-      jump_prefix: 'meta+shift',
-      permuation_modifier: 'alt',
-    },
-    indicatorPrefix:'meta+shift'
-  }
 };

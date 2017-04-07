@@ -53,9 +53,15 @@
 },
 "[c]": {
   "editor.quickSuggestions": false
-}
+},
 /* mini map
 "editor.minimap.enabled": true,
 "editor.minimap.renderCharacters": false
 */
+
+"workbench.experimental.colorCustomizations": {
+    "statusBarBackground": "#1f293b"
+},
+
+"zenMode.hideStatusBar": false
 }
