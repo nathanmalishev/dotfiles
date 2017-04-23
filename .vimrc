@@ -1,4 +1,4 @@
-syntax off
+syntax on
 set number
 set relativenumber
 filetype plugin indent on

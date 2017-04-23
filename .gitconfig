@@ -16,6 +16,16 @@
             hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
               type = cat-file -t
                 dump = cat-file -p
+
+    stash-all = stash save --include-untracked
+    # We wanna grab those pesky un-added files!
+    #   # https://git-scm.com/docs/git-stash
+
+
+   glog = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+     # No need for a GUI - a nice, colorful, graphical representation
+     #   # https://git-scm.com/docs/git-log
+     #     # via https://medium.com/@payload.dd/thanks-for-the-git-st-i-will-use-this-4da5839a21a4
 [core]
 	excludesfile = /Users/nathan/.gitignore_global
 	editor = vim
@@ -30,5 +40,9 @@
 	tool = kdiff3
 	tool = vimdiff3
 	tool = kdiff3
+  ff = only
+  # I pretty much never mean to do a real merge, since I use a rebase workflow.
+  #   # Note: this global option applies to all merges, including those done during a git pull
+  #     # https://git-scm.com/docs/git-config#git-config-mergeff
 [diff]
 	guitool = kdiff3
