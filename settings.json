@@ -58,10 +58,12 @@
 "editor.minimap.enabled": true,
 "editor.minimap.renderCharacters": false
 */
-
-"workbench.experimental.colorCustomizations": {
-    "statusBarBackground": "#1f293b"
+"workbench.colorCustomizations": {
+    "statusBar.background":"#1f293b"
 },
 
-"zenMode.hideStatusBar": false
+"zenMode.hideStatusBar": false,
+"guides.active.enabled": false,
+"guides.stack.enabled": false,
+"guides.normal.color.dark": "rgba(60, 60, 60, 0.55)"
 }

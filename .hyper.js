@@ -104,11 +104,21 @@ module.exports = {
   //   `hyperpower`
   //   `@company/project`
   //   `project#1.0.1`
-  plugins: ["hypercwd","hyper-pane"],
+  plugins: [
+    "hypercwd",
+    "hyper-pane"
+    //"hyperline"
+    //"hyperterm-paste"
+    //"hyperterm-dibdabs"
+  ], 
 
   // in development, you can create a directory under
   // `~/.hyper_plugins/local/` and include it here
   // to load it and avoid it being `npm install`ed
   localPlugins: [],
 
-};
+  //plugin settings
+  hyperline: {
+    color:'green'
+  }
+}
