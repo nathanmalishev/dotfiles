@@ -65,5 +65,10 @@
 "zenMode.hideStatusBar": false,
 "guides.active.enabled": false,
 "guides.stack.enabled": false,
-"guides.normal.color.dark": "rgba(60, 60, 60, 0.55)"
+"guides.normal.color.dark": "rgba(60, 60, 60, 0.55)",
+
+/* neo vim */
+"vim.disableAnnoyingNeovimMessage": true,
+"vim.enableNeovim" : true,
+"vim.neovimPath" : "/usr/local/bin/nvim"
 }

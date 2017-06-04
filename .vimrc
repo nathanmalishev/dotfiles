@@ -1,4 +1,4 @@
-syntax on
+" syntax on
 set number
 set relativenumber
 filetype plugin indent on
@@ -8,3 +8,4 @@ set tabstop=2
 set shiftwidth=2
 " On pressing tab, insert 2 spaces
 set expandtab
+set shell=/bin/bash
