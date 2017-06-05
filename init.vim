@@ -29,6 +29,13 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 
+" generate tags
+Plug 'fntlnz/atags.vim'
+Plug 'isRuslan/vim-es6'
+
+" project wide search
+Plug 'eugen0329/vim-esearch'
+
 call plug#end()
 
 " <Leader>f{char} to move to {char}
@@ -79,4 +86,6 @@ let g:deoplete#enable_ignore_case = 1
 let g:deoplete#enable_smart_case = 1
 " deoplete tab-complete
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+" generate tags on save
+autocmd BufWritePost * call atags#generate()
 
