@@ -29,6 +29,9 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 
+"tag sidebar
+Plug 'majutsushi/tagbar'
+
 " generate tags
 Plug 'fntlnz/atags.vim'
 Plug 'isRuslan/vim-es6'
@@ -36,7 +39,13 @@ Plug 'isRuslan/vim-es6'
 " project wide search
 Plug 'eugen0329/vim-esearch'
 
+" terraform
+Plug 'hashivim/vim-terraform'
+
 call plug#end()
+
+" tag bar
+nmap <Leader>p :TagbarToggle<CR>
 
 " <Leader>f{char} to move to {char}
 map  <Leader>s <Plug>(easymotion-bd-f)
@@ -88,4 +97,5 @@ let g:deoplete#enable_smart_case = 1
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 " generate tags on save
 autocmd BufWritePost * call atags#generate()
-
+" random shit to get ctags
+let g:tlist_javascript_settings = 'javascript;r:var;s:string;a:array;o:object;u:function'
