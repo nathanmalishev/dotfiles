@@ -70,5 +70,7 @@
 /* neo vim */
 "vim.disableAnnoyingNeovimMessage": true,
 "vim.enableNeovim" : true,
-"vim.neovimPath" : "/usr/local/bin/nvim"
+"vim.neovimPath": "/usr/local/bin/nvim",
+"gitlens.blame.line.enabled": false,
+"guides.enabled": false
 }

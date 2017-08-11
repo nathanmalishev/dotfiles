@@ -39,6 +39,9 @@ Plug 'isRuslan/vim-es6'
 " project wide search
 Plug 'eugen0329/vim-esearch'
 
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+
 " terraform
 Plug 'hashivim/vim-terraform'
 
@@ -88,7 +91,9 @@ function ESLintFix()
   Neomake
 endfunction
 
+"" hit el for autofixing
 nnoremap <leader>el :call ESLintFix()<CR>
+
 " Use deoplete.
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_ignore_case = 1
@@ -96,6 +101,25 @@ let g:deoplete#enable_smart_case = 1
 " deoplete tab-complete
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 " generate tags on save
-autocmd BufWritePost * call atags#generate()
+" autocmd BufWritePost * call atags#generate()
 " random shit to get ctags
 let g:tlist_javascript_settings = 'javascript;r:var;s:string;a:array;o:object;u:function'
+
+
+map <C-n> :NERDTreeToggle<CR>
+autocmd vimenter * NERDTree
+autocmd VimEnter * wincmd p
+
+
+
+" easier split screen navigation
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" set the way splits open - more natural from right and bottom
+set splitbelow
+set splitright
+
+
