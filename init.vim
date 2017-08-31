@@ -45,6 +45,20 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 " terraform
 Plug 'hashivim/vim-terraform'
 
+"snippets
+Plug 'SirVer/ultisnips'
+
+" ES2015 code snippets (Optional)
+Plug 'epilande/vim-es2015-snippets'
+
+" React code snippets
+Plug 'epilande/vim-react-snippets'
+
+" emmet
+Plug 'mattn/emmet-vim'
+
+"easy align
+Plug 'junegunn/vim-easy-align'
 call plug#end()
 
 " tag bar
@@ -99,7 +113,10 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_ignore_case = 1
 let g:deoplete#enable_smart_case = 1
 " deoplete tab-complete
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+"inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+let g:UltiSnipsExpandTrigger="<C-l>"
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " generate tags on save
 " autocmd BufWritePost * call atags#generate()
 " random shit to get ctags
@@ -122,4 +139,21 @@ nnoremap <C-H> <C-W><C-H>
 set splitbelow
 set splitright
 
+"" jsx is used by .js files
+let g:jsx_ext_required = 0
 
+
+let g:user_emmet_settings = {
+\  'javascript' : {
+\      'extends' : 'jsx',
+\  },
+\}
+
+
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
