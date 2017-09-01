@@ -59,6 +59,9 @@ Plug 'mattn/emmet-vim'
 
 "easy align
 Plug 'junegunn/vim-easy-align'
+
+" call tmux from vim
+Plug 'benmills/vimux'
 call plug#end()
 
 " tag bar
@@ -157,3 +160,59 @@ nmap ga <Plug>(EasyAlign)
 
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
+
+
+" bind crtl-, to inspect VimuxInspectRunner
+nmap <C-l> :VimuxInspectRunner<CR>
+" Prompt for a command to run map
+map <Leader>vp :VimuxPromptCommand<CR>
+" Inspect runner pane map
+map <Leader>vi :VimuxInspectRunner<CR>
+" Close vim tmux runner opened by VimuxRunCommand
+map <Leader>vq :VimuxCloseRunner<CR>
+" Run last command executed by VimuxRunCommand
+map <Leader>vl :VimuxRunLastCommand<CR>
+" Interrupt any command running in the runner pane map
+map <Leader>vs :VimuxInterruptRunner<CR>
+
+" Prompt for a command to run yarn test
+map <Leader>vt :VimuxPromptCommand("yarn test")<CR><CR>
+
+
+set clipboard=unnamed
+set autoread
+
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+
+
+"" extra settings stolen of that youtube dude
+set autoindent              " automatically set indent of new line
+set smartindent
+
+" toggle invisible characters
+set list
+set listchars=tab:→\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
+set showbreak=↪
+
+" highlight conflicts
+match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
+
+" make backspace behave in a sane manner
+set backspace=indent,eol,start
+
+set magic                   " Set magic on, for regex
+
+set showmatch               " show matching braces
+set mat=2                   " how many tenths of a second to blink
+
+" error bells
+set noerrorbells
+set visualbell
+
+
+" Textmate style indentation
+vmap <leader>[ <gv
+vmap <leader>] >gv
+nmap <leader>[ <<
+nmap <leader>] >>
