@@ -62,6 +62,8 @@ Plug 'junegunn/vim-easy-align'
 
 " call tmux from vim
 Plug 'benmills/vimux'
+" better vim 
+Plug 'tpope/vim-unimpaired'
 call plug#end()
 
 " tag bar
@@ -164,6 +166,8 @@ xmap ga <Plug>(EasyAlign)
 " bind some gitfugitive commands
 map <Leader>gs :Gstatus<CR>
 map <Leader>ge :Gedit<CR>
+map <Leader>gl :Glog<CR>
+map <Leader>gd :Gdiff<CR>
 map <Leader>gc :Gcommit<CR>
 
 
