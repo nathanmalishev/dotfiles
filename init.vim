@@ -66,6 +66,13 @@ Plug 'benmills/vimux'
 Plug 'tpope/vim-unimpaired'
 call plug#end()
 
+:imap jj <Esc>
+:nmap ll :w<CR>
+:nmap jj :q<CR>
+"bind to save file
+"noremap <Leader>ll :w<CR>
+
+
 " tag bar
 "nmap <Leader>p :TagbarToggle<CR>
 
@@ -169,6 +176,9 @@ map <Leader>ge :Gedit<CR>
 map <Leader>gl :Glog<CR>
 map <Leader>gd :Gdiff<CR>
 map <Leader>gc :Gcommit<CR>
+
+command Greview :Git! diff --staged
+nnoremap <leader>gr :Greview<cr>
 
 
 " bind crtl-, to inspect VimuxInspectRunner
