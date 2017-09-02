@@ -30,11 +30,11 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 
 "tag sidebar
-Plug 'majutsushi/tagbar'
+"Plug 'majutsushi/tagbar'
 
 " generate tags
-Plug 'fntlnz/atags.vim'
-Plug 'isRuslan/vim-es6'
+"Plug 'fntlnz/atags.vim'
+"Plug 'isRuslan/vim-es6'
 
 " project wide search
 Plug 'eugen0329/vim-esearch'
@@ -65,7 +65,7 @@ Plug 'benmills/vimux'
 call plug#end()
 
 " tag bar
-nmap <Leader>p :TagbarToggle<CR>
+"nmap <Leader>p :TagbarToggle<CR>
 
 " <Leader>f{char} to move to {char}
 map  <Leader>s <Plug>(easymotion-bd-f)
@@ -160,6 +160,11 @@ nmap ga <Plug>(EasyAlign)
 
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
+
+" bind some gitfugitive commands
+map <Leader>gs :Gstatus<CR>
+map <Leader>ge :Gedit<CR>
+map <Leader>gc :Gcommit<CR>
 
 
 " bind crtl-, to inspect VimuxInspectRunner
