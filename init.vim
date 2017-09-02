@@ -186,6 +186,7 @@ map <Leader>vs :VimuxInterruptRunner<CR>
 
 " Prompt for a command to run yarn test
 map <Leader>vt :VimuxPromptCommand("yarn test")<CR><CR>
+map <Leader>vT :VimuxPromptCommand("yarn lint")<CR><CR>
 
 
 set clipboard=unnamed
