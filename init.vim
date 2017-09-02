@@ -135,9 +135,9 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 let g:tlist_javascript_settings = 'javascript;r:var;s:string;a:array;o:object;u:function'
 
 
-map <C-n> :NERDTreeToggle<CR>
-autocmd vimenter * NERDTree
-autocmd VimEnter * wincmd p
+"map <C-n> :NERDTreeToggle<CR>
+"autocmd vimenter * NERDTree
+"autocmd VimEnter * wincmd p
 
 
 
