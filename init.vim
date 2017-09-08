@@ -135,7 +135,7 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 let g:tlist_javascript_settings = 'javascript;r:var;s:string;a:array;o:object;u:function'
 
 
-"map <C-n> :NERDTreeToggle<CR>
+map <C-n> :NERDTreeToggle<CR>
 "autocmd vimenter * NERDTree
 "autocmd VimEnter * wincmd p
 
@@ -173,6 +173,7 @@ xmap ga <Plug>(EasyAlign)
 " bind some gitfugitive commands
 map <Leader>gs :Gstatus<CR>
 map <Leader>ge :Gedit<CR>
+map <Leader>gp :Gpush<CR>
 map <Leader>gl :Glog<CR>
 map <Leader>gd :Gdiff<CR>
 map <Leader>gc :Gcommit<CR>

@@ -7,15 +7,15 @@
 	name = Nathan Malishev
 	email = nathan.malishev@gmail.com
 [push]
-	default = matching
+	default = current
 [alias]
     co = checkout
-      ci = commit
-        st = status
-          br = branch
-            hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
-              type = cat-file -t
-                dump = cat-file -p
+    ci = commit
+    st = status
+    br = branch
+    hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+    type = cat-file -t
+    dump = cat-file -p
 
     stash-all = stash save --include-untracked
     # We wanna grab those pesky un-added files!

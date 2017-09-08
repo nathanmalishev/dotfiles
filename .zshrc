@@ -98,3 +98,4 @@ source /Users/nathan/Coding/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 export PATH="$HOME/.yarn/bin:$PATH:~/java/apache-maven-3.5.0/bin"
 
 alias nv='nvim'
+alias when='ntfy'
