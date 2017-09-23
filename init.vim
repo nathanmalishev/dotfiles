@@ -13,7 +13,7 @@ let mapleader="\<Space>"
 
 call plug#begin('~/.local/share/nvim/plugged')
 
-Plug 'cloudhead/neovim-fuzzy'
+"Plug 'cloudhead/neovim-fuzzy' using crtlp instead
 Plug 'easymotion/vim-easymotion'
 Plug 'neomake/neomake'
 Plug 'scrooloose/nerdcommenter'
@@ -64,6 +64,12 @@ Plug 'junegunn/vim-easy-align'
 Plug 'benmills/vimux'
 " better vim 
 Plug 'tpope/vim-unimpaired'
+
+" go
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'fatih/molokai'
+Plug 'ctrlpvim/ctrlp.vim'
 call plug#end()
 
 :imap jj <Esc>
@@ -110,6 +116,9 @@ endif
 " Theme
 syntax enable
 colorscheme OceanicNext
+"let g:rehash256 = 1
+"let g:molokai_original = 1
+"colorscheme molokai
 
 function ESLintFix()
   silent execute "!./node_modules/.bin/eslint --fix %"
@@ -181,6 +190,56 @@ map <Leader>gc :Gcommit<CR>
 command Greview :Git! diff --staged
 nnoremap <leader>gr :Greview<cr>
 
+" go stuff
+" run :GoBuild or :GoTestCompile based on the go file
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+
+autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+map <C-[> :cnext<CR>
+map <C-]> :cprevious<CR>
+nnoremap <leader>cc :cclose<CR>
+
+autocmd FileType go nmap <leader>tt <Plug>(go-test)
+autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+autocmd FileType go map <leader>tf :GoTestFunc<CR>
+autocmd FileType go map <leader>tm :GoMetaLinter<CR>
+
+autocmd FileType go map <leader>a :GoAlternate<CR>
+
+"automatically shows type info
+let g:go_auto_type_info = 1
+autocmd FileType go nmap <Leader>i <Plug>(go-info)
+set updatetime=500
+
+" highlights matching words
+let g:go_auto_sameids = 1
+
+autocmd FileType go map <leader>d. :GoDecls<CR>
+autocmd FileType go map <leader>dd :GoDeclsDir<CR>
+
+autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
+
+" automatically does the imports exports 
+let g:go_fmt_command = "goimports"
+
+"make shit more pretty
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 0
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 0
+
+"" end go stuff
 
 " bind crtl-, to inspect VimuxInspectRunner
 nmap <C-l> :VimuxInspectRunner<CR>
@@ -196,8 +255,9 @@ map <Leader>vl :VimuxRunLastCommand<CR>
 map <Leader>vs :VimuxInterruptRunner<CR>
 
 " Prompt for a command to run yarn test
-map <Leader>vt :VimuxPromptCommand("yarn test")<CR><CR>
-map <Leader>vT :VimuxPromptCommand("yarn lint")<CR><CR>
+autocmd FileType js map <Leader>t :VimuxPromptCommand("yarn test")<CR><CR>
+autocmd FileType js map <Leader>T :VimuxPromptCommand("yarn lint")<CR><CR>
+autocmd FileType go map <Leader>r :VimuxPromptCommand("go run $(ls)")<CR><CR>
 
 
 set clipboard=unnamed
@@ -237,3 +297,11 @@ vmap <leader>[ <gv
 vmap <leader>] >gv
 nmap <leader>[ <<
 nmap <leader>] >>
+
+let g:VimuxOrientation = "h"
+let g:VimuxHeight = "30"
+
+
+" new fuzzy finder
+set wildignore+=*/tmp/*,*/node_modules/*,*.so,*.swp,*.zip     " MacOSX/Linux
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
