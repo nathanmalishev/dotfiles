@@ -40,7 +40,7 @@
 	tool = kdiff3
 	tool = vimdiff3
 	tool = kdiff3
-  ff = only
+#  ff = only
   # I pretty much never mean to do a real merge, since I use a rebase workflow.
   #   # Note: this global option applies to all merges, including those done during a git pull
   #     # https://git-scm.com/docs/git-config#git-config-mergeff

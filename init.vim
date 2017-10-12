@@ -220,6 +220,7 @@ set updatetime=500
 
 " highlights matching words
 let g:go_auto_sameids = 1
+let g:go_fmt_fail_silently = 1
 
 autocmd FileType go map <leader>d. :GoDecls<CR>
 autocmd FileType go map <leader>dd :GoDeclsDir<CR>
@@ -257,7 +258,7 @@ map <Leader>vs :VimuxInterruptRunner<CR>
 " Prompt for a command to run yarn test
 autocmd FileType js map <Leader>t :VimuxPromptCommand("yarn test")<CR><CR>
 autocmd FileType js map <Leader>T :VimuxPromptCommand("yarn lint")<CR><CR>
-autocmd FileType go map <Leader>r :VimuxPromptCommand("go run $(ls)")<CR><CR>
+autocmd FileType go map <Leader>r :VimuxPromptCommand("go run -race *.go")<CR><CR>
 
 
 set clipboard=unnamed

@@ -1,6 +1,5 @@
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/nathan/.oh-my-zsh
-export GOPATH=/Users/nathan/go
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -95,7 +94,9 @@ eval "$(rbenv init -)"
 set -o vi
 source /Users/nathan/Coding/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-export PATH="$HOME/.yarn/bin:$PATH:~/java/apache-maven-3.5.0/bin"
+export PATH="$HOME/.yarn/bin:$PATH:~/java/apache-maven-3.5.0/bin:$HOME/nathanBin"
+export GOPATH=$(go env GOPATH)
+export PATH=$PATH:$(go env GOPATH)/bin
 
 alias nv='nvim'
 alias when='ntfy'

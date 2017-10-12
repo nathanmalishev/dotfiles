@@ -47,7 +47,7 @@
 "gitlens.blame.annotation.activeLine": "off",
 "gitlens.codeLens.visibility": "ondemand",
 "workbench.colorTheme": "Visual Studio Dark",
-"workbench.iconTheme": "vs-seti",
+"workbench.iconTheme": "vscode-icons",
 "[cpp]": {
   "editor.quickSuggestions": false
 },
@@ -72,5 +72,6 @@
 "vim.enableNeovim" : true,
 "vim.neovimPath": "/usr/local/bin/nvim",
 "gitlens.blame.line.enabled": false,
-"guides.enabled": false
+"guides.enabled": false,
+"extensions.ignoreRecommendations": false
 }
