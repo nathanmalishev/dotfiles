@@ -70,6 +70,10 @@ Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'fatih/molokai'
 Plug 'ctrlpvim/ctrlp.vim'
+
+
+" linter
+"Plug 'w0rp/ale'
 call plug#end()
 
 :imap jj <Esc>
@@ -93,11 +97,29 @@ let g:EasyMotion_smartcase = 1
 map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
 
+"" ALE STUFF NEW thing to call linter
+" Put this in vimrc or a plugin file of your own.
+" After this is configured, :ALEFix will try and fix your JS code with ESLint.
+"let g:ale_fixers = {
+"\   'javascript': ['eslint'],
+"\}
 
+"" hit el for autofixing
+"nnoremap <leader> el :ALEFix<CR>
+"let g:ale_use_ch_sendraw = 1
+
+"" NEOMAKE STUFF WE USE TO USE
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_javascript_eslint_exe = $PWD .'/node_modules/.bin/eslint'
-"autocmd BufWritePost *.js !'./node_modules/.bin/eslint' --fix %
 autocmd BufWritePost,BufEnter * Neomake
+function ESLintFix()
+  silent execute "!./node_modules/.bin/eslint --fix %"
+  edit! %
+  Neomake
+endfunction
+
+""" hit el for autofixing
+nnoremap <leader>el :call ESLintFix()<CR>
 
 " fuzzy finder
 nnoremap <C-p> :FuzzyOpen<CR>
@@ -106,13 +128,25 @@ nnoremap <C-p> :FuzzyOpen<CR>
 let g:javascript_plugin_jsdoc = 1
 
 " For Neovim 0.1.3 and 0.1.4
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+"let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 " Or if you have Neovim >= 0.1.5
-if (has("termguicolors"))
- set termguicolors
+"
+if has("termguicolors")     " set true colors
+    set t_8f=\[[38;2;%lu;%lu;%lum
+    set t_8b=\[[48;2;%lu;%lu;%lum
+    set termguicolors
 endif
-
+"set termguicolors
+"" set Vim-specific sequences for RGB colors
+"let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+"let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+""if (has("termguicolors"))
+ ""set termguicolors
+""endif
+"" use 256 colors in terminal
+"set t_Co=256
+"
 " Theme
 syntax enable
 colorscheme OceanicNext
@@ -120,14 +154,6 @@ colorscheme OceanicNext
 "let g:molokai_original = 1
 "colorscheme molokai
 
-function ESLintFix()
-  silent execute "!./node_modules/.bin/eslint --fix %"
-  edit! %
-  Neomake
-endfunction
-
-"" hit el for autofixing
-nnoremap <leader>el :call ESLintFix()<CR>
 
 " Use deoplete.
 let g:deoplete#enable_at_startup = 1
@@ -306,3 +332,4 @@ let g:VimuxHeight = "30"
 " new fuzzy finder
 set wildignore+=*/tmp/*,*/node_modules/*,*.so,*.swp,*.zip     " MacOSX/Linux
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+
