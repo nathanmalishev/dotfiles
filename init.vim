@@ -3,6 +3,7 @@ syntax on
 set number
 set relativenumber
 
+filetype off
 filetype plugin indent on
 set tabstop=2
 
@@ -69,8 +70,9 @@ Plug 'tpope/vim-unimpaired'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'fatih/molokai'
-Plug 'ctrlpvim/ctrlp.vim'
-
+"Plug 'ctrlpvim/ctrlp.vim' using fuzzy
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
 
 " linter
 "Plug 'w0rp/ale'
@@ -284,6 +286,8 @@ map <Leader>vs :VimuxInterruptRunner<CR>
 " Prompt for a command to run yarn test
 autocmd FileType js map <Leader>t :VimuxPromptCommand("yarn test")<CR><CR>
 autocmd FileType js map <Leader>T :VimuxPromptCommand("yarn lint")<CR><CR>
+autocmd FileType javascript.jsx map <Leader>t :VimuxPromptCommand("yarn test")<CR><CR>
+autocmd FileType javascript.jsx map <Leader>T :VimuxPromptCommand("yarn lint")<CR><CR>
 autocmd FileType go map <Leader>r :VimuxPromptCommand("go run -race *.go")<CR><CR>
 
 
@@ -329,7 +333,12 @@ let g:VimuxOrientation = "h"
 let g:VimuxHeight = "30"
 
 
-" new fuzzy finder
-set wildignore+=*/tmp/*,*/node_modules/*,*.so,*.swp,*.zip     " MacOSX/Linux
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+" new fuzzy finder ctrlp being replaced with fzf
+"set wildignore+=*/tmp/*,*/node_modules/*,*.so,*.swp,*.zip     " MacOSX/Linux
+"let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
+"fzf good stuff
+nnoremap <c-p> :GFiles<cr>
+" Default fzf layout
+" - down / up / left / right
+let g:fzf_layout = { 'down': '~20%' }
