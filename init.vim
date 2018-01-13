@@ -339,6 +339,7 @@ let g:VimuxHeight = "30"
 
 "fzf good stuff
 nnoremap <c-p> :GFiles<cr>
+nnoremap <c-g> :GFiles?<cr>
 " Default fzf layout
 " - down / up / left / right
-let g:fzf_layout = { 'down': '~20%' }
+let g:fzf_layout = { 'down': '~40%' }
