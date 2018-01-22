@@ -88,9 +88,12 @@ call plug#end()
 " tag bar
 "nmap <Leader>p :TagbarToggle<CR>
 
-" <Leader>f{char} to move to {char}
+" <Leader>s{char} to move to {char}
 map  <Leader>s <Plug>(easymotion-bd-f)
 nmap <Leader>s <Plug>(easymotion-overwin-f)
+
+" f{char}{char} to move to {char}{char}
+nmap <Leader>f <Plug>(easymotion-overwin-f2)
 
 " Turn on case insensitive feature
 let g:EasyMotion_smartcase = 1
