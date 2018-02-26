@@ -93,7 +93,7 @@ map  <Leader>s <Plug>(easymotion-bd-f)
 nmap <Leader>s <Plug>(easymotion-overwin-f)
 
 " f{char}{char} to move to {char}{char}
-nmap <Leader>f <Plug>(easymotion-overwin-f2)
+nmap <Leader>a <Plug>(easymotion-overwin-f2)
 
 " Turn on case insensitive feature
 let g:EasyMotion_smartcase = 1
@@ -101,6 +101,7 @@ let g:EasyMotion_smartcase = 1
 " JK motions: Line motions
 map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
+
 
 "" ALE STUFF NEW thing to call linter
 " Put this in vimrc or a plugin file of your own.

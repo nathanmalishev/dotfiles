@@ -104,3 +104,12 @@ export PATH=$PATH:$(go env GOPATH)/bin
 
 alias nv='nvim'
 alias when='ntfy'
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /Users/nathan/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/nathan/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /Users/nathan/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/nathan/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh
