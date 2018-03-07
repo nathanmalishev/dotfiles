@@ -14,7 +14,6 @@ let mapleader="\<Space>"
 
 call plug#begin('~/.local/share/nvim/plugged')
 
-"Plug 'cloudhead/neovim-fuzzy' using crtlp instead
 Plug 'easymotion/vim-easymotion'
 Plug 'neomake/neomake'
 Plug 'scrooloose/nerdcommenter'
@@ -24,14 +23,11 @@ Plug 'othree/html5.vim'
 Plug 'ternjs/tern_for_vim'
 Plug 'mhartington/oceanic-next'
 Plug 'pangloss/vim-javascript'
-Plug 'ruanyl/vim-fixmyjs'
-Plug 'mxw/vim-jsx'
+Plug 'ruanyl/vim-fixmyjs', { 'for': 'javascript' }
+Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
-
-"tag sidebar
-"Plug 'majutsushi/tagbar'
 
 " generate tags
 "Plug 'fntlnz/atags.vim'
@@ -50,10 +46,10 @@ Plug 'hashivim/vim-terraform'
 Plug 'SirVer/ultisnips'
 
 " ES2015 code snippets (Optional)
-Plug 'epilande/vim-es2015-snippets'
+Plug 'epilande/vim-es2015-snippets', { 'for': 'javascript' }
 
 " React code snippets
-Plug 'epilande/vim-react-snippets'
+Plug 'epilande/vim-react-snippets', { 'for': 'javascript' }
 
 " emmet
 Plug 'mattn/emmet-vim'
@@ -73,6 +69,14 @@ Plug 'fatih/molokai'
 "Plug 'ctrlpvim/ctrlp.vim' using fuzzy
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
+
+"cool bar
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+Plug 'edkolev/tmuxline.vim'
+
+Plug 'xojs/vim-xo'
 
 " linter
 "Plug 'w0rp/ale'
@@ -115,7 +119,7 @@ map <Leader>k <Plug>(easymotion-k)
 "let g:ale_use_ch_sendraw = 1
 
 "" NEOMAKE STUFF WE USE TO USE
-let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_javascript_enabled_makers = ['eslint', 'xo']
 let g:neomake_javascript_eslint_exe = $PWD .'/node_modules/.bin/eslint'
 autocmd BufWritePost,BufEnter * Neomake
 function ESLintFix()
@@ -124,8 +128,15 @@ function ESLintFix()
   Neomake
 endfunction
 
+function XOLintFix()
+  silent execute "!xo --fix %"
+  edit! %
+  Neomake
+endfunction
+
 """ hit el for autofixing
 nnoremap <leader>el :call ESLintFix()<CR>
+nnoremap <leader>xo :call XOLintFix()<CR>
 
 " fuzzy finder
 nnoremap <C-p> :FuzzyOpen<CR>
@@ -347,3 +358,8 @@ nnoremap <c-g> :GFiles?<cr>
 " Default fzf layout
 " - down / up / left / right
 let g:fzf_layout = { 'down': '~40%' }
+
+" default theme
+let g:airline_theme='deus'
+let g:tmuxline_theme='powerline'
+"let g:airline#extensions#tmuxline#enabled = 0
