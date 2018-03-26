@@ -9,3 +9,11 @@ set shiftwidth=2
 " On pressing tab, insert 2 spaces
 set expandtab
 set shell=/bin/bash
+
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'dart-lang/dart-vim-plugin'
+
+" Initialize plugin system
+call plug#end()

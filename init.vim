@@ -13,16 +13,18 @@ set expandtab
 let mapleader="\<Space>"
 
 call plug#begin('~/.local/share/nvim/plugged')
+"" flutter & dart
+Plug 'dart-lang/dart-vim-plugin', { 'for': 'dart' }
 
 Plug 'easymotion/vim-easymotion'
 Plug 'neomake/neomake'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
-Plug 'othree/yajs.vim'
-Plug 'othree/html5.vim'
+Plug 'othree/yajs.vim', { 'for': 'javascript' }
+Plug 'othree/html5.vim', { 'for': ['html', 'javascript'] }
 Plug 'ternjs/tern_for_vim'
 Plug 'mhartington/oceanic-next'
-Plug 'pangloss/vim-javascript'
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'ruanyl/vim-fixmyjs', { 'for': 'javascript' }
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -76,7 +78,8 @@ Plug 'vim-airline/vim-airline-themes'
 
 Plug 'edkolev/tmuxline.vim'
 
-Plug 'xojs/vim-xo'
+Plug 'xojs/vim-xo', { 'for': 'javascript' }
+
 
 " linter
 "Plug 'w0rp/ale'
@@ -179,6 +182,7 @@ let g:deoplete#enable_smart_case = 1
 " deoplete tab-complete
 "inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+"snippets
 let g:UltiSnipsExpandTrigger="<C-l>"
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " generate tags on save
@@ -363,3 +367,11 @@ let g:fzf_layout = { 'down': '~40%' }
 let g:airline_theme='deus'
 let g:tmuxline_theme='powerline'
 "let g:airline#extensions#tmuxline#enabled = 0
+
+
+" faster resizing
+nnoremap <expr> <C-w>+ v:count1 * 15 . '<C-w>+'
+nnoremap <expr> <C-w>- v:count1 * 15 . '<C-w>-'
+nnoremap <expr> <C-w>< v:count1 * 15 . '<C-w><'
+nnoremap <expr> <C-w>> v:count1 * 15 . '<C-w>>'
+
