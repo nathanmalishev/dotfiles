@@ -20,9 +20,8 @@ Plug 'easymotion/vim-easymotion'
 Plug 'neomake/neomake'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
-Plug 'othree/yajs.vim', { 'for': 'javascript' }
 Plug 'othree/html5.vim', { 'for': ['html', 'javascript'] }
-Plug 'ternjs/tern_for_vim'
+Plug 'ternjs/tern_for_vim', { 'for': 'javascript' }
 Plug 'mhartington/oceanic-next'
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'ruanyl/vim-fixmyjs', { 'for': 'javascript' }
@@ -41,9 +40,6 @@ Plug 'eugen0329/vim-esearch'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
-" terraform
-Plug 'hashivim/vim-terraform'
-
 "snippets
 Plug 'SirVer/ultisnips'
 
@@ -54,18 +50,18 @@ Plug 'epilande/vim-es2015-snippets', { 'for': 'javascript' }
 Plug 'epilande/vim-react-snippets', { 'for': 'javascript' }
 
 " emmet
-Plug 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim', { 'for': ['html', 'javascript'] }
 
 "easy align
 Plug 'junegunn/vim-easy-align'
 
 " call tmux from vim
 Plug 'benmills/vimux'
-" better vim 
-Plug 'tpope/vim-unimpaired'
+" weird kepmapping don't think i use it
+" Plug 'tpope/vim-unimpaired'
 
 " go
-Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'for': 'golang' }
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'fatih/molokai'
 "Plug 'ctrlpvim/ctrlp.vim' using fuzzy
@@ -80,9 +76,9 @@ Plug 'edkolev/tmuxline.vim'
 
 Plug 'xojs/vim-xo', { 'for': 'javascript' }
 
+" apparent solution to my life
+Plug 'sheerun/vim-polyglot'
 
-" linter
-"Plug 'w0rp/ale'
 call plug#end()
 
 :imap jj <Esc>
@@ -375,3 +371,6 @@ nnoremap <expr> <C-w>- v:count1 * 15 . '<C-w>-'
 nnoremap <expr> <C-w>< v:count1 * 15 . '<C-w><'
 nnoremap <expr> <C-w>> v:count1 * 15 . '<C-w>>'
 
+
+" we have our own shit for jsx & go atm
+let g:polyglot_disabled = [ 'javascript', 'jsx', 'go', 'js']
