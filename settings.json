@@ -31,7 +31,7 @@
 "go.lintTool":"gometalinter",
 "editor.quickSuggestions": true,
 "workbench.statusBar.visible": true,
-"window.zoomLevel": 0,
+"window.zoomLevel": 1,
 "vsicons.dontShowNewVersionMessage": true,
 "vsicons.projectDetection.autoReload": true,
 "java.errors.incompleteClasspath.severity": "ignore",
