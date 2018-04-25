@@ -96,14 +96,21 @@ eval "$(rbenv init -)"
 
 # set -o vi
 set -o vi
-source /Users/nathan/Coding/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 
 export PATH="$HOME/.yarn/bin:$PATH:~/java/apache-maven-3.5.0/bin:$HOME/nathanBin"
 export GOPATH=$HOME/go
-export PATH=$PATH:$(go env GOPATH)/bin
+export PATH=$PATH:user/local/go/bin
+
+. ~/Apps/z/z.sh
 
 alias nv='nvim'
 alias when='ntfy'
+alias ls='exa'
+# exa:
+alias la="exa -abghl --git --color=automatic"
+alias ca='pygmentize -f terminal256 -O style=native -g'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 

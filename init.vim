@@ -22,7 +22,11 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
 Plug 'othree/html5.vim', { 'for': ['html', 'javascript'] }
 Plug 'ternjs/tern_for_vim', { 'for': 'javascript' }
+
+Plug 'wikitopian/hardmode'
+"" themes
 Plug 'mhartington/oceanic-next'
+
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'ruanyl/vim-fixmyjs', { 'for': 'javascript' }
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
@@ -167,9 +171,6 @@ endif
 syntax enable
 colorscheme OceanicNext
 "let g:rehash256 = 1
-"let g:molokai_original = 1
-"colorscheme molokai
-
 
 " Use deoplete.
 let g:deoplete#enable_at_startup = 1
@@ -225,7 +226,7 @@ xmap ga <Plug>(EasyAlign)
 " bind some gitfugitive commands
 map <Leader>gs :Gstatus<CR>
 map <Leader>ge :Gedit<CR>
-map <Leader>gp :Gpush<CR>
+map <Leader>ggp :Gpush<CR>
 map <Leader>gl :Glog<CR>
 map <Leader>gd :Gdiff<CR>
 map <Leader>gc :Gcommit<CR>
@@ -374,3 +375,4 @@ nnoremap <expr> <C-w>> v:count1 * 15 . '<C-w>>'
 
 " we have our own shit for jsx & go atm
 let g:polyglot_disabled = [ 'javascript', 'jsx', 'go', 'js']
+autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
