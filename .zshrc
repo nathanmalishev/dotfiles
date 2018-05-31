@@ -101,7 +101,7 @@ source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 export PATH="$HOME/.yarn/bin:$PATH:~/java/apache-maven-3.5.0/bin:$HOME/nathanBin"
 export GOPATH=$HOME/go
-export PATH=$PATH:user/local/go/bin
+export PATH=$PATH:~/go/bin
 
 . ~/Apps/z/z.sh
 
@@ -120,3 +120,6 @@ alias ca='pygmentize -f terminal256 -O style=native -g'
 # tabtab source for sls package
 # uninstall by removing these lines or running `tabtab uninstall sls`
 [[ -f /Users/nathan/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/nathan/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh
+
+# added by travis gem
+[ -f /Users/nathan/.travis/travis.sh ] && source /Users/nathan/.travis/travis.sh

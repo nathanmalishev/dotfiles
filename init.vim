@@ -1,5 +1,7 @@
 syntax on
 
+set shell=/bin/zsh
+
 set number
 set relativenumber
 
@@ -23,7 +25,7 @@ Plug 'tpope/vim-surround'
 Plug 'othree/html5.vim', { 'for': ['html', 'javascript'] }
 Plug 'ternjs/tern_for_vim', { 'for': 'javascript' }
 
-Plug 'wikitopian/hardmode'
+"Plug 'wikitopian/hardmode'
 "" themes
 Plug 'mhartington/oceanic-next'
 
@@ -65,7 +67,7 @@ Plug 'benmills/vimux'
 " Plug 'tpope/vim-unimpaired'
 
 " go
-Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'for': 'golang' }
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'for': 'go' }
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'fatih/molokai'
 "Plug 'ctrlpvim/ctrlp.vim' using fuzzy
