@@ -35,6 +35,8 @@ Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
+" for gbrowse
+Plug 'tpope/vim-rhubarb'
 
 " generate tags
 "Plug 'fntlnz/atags.vim'
@@ -228,7 +230,8 @@ xmap ga <Plug>(EasyAlign)
 " bind some gitfugitive commands
 map <Leader>gs :Gstatus<CR>
 map <Leader>ge :Gedit<CR>
-map <Leader>ggp :Gpush<CR>
+map <Leader>ggp :!git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD)<CR>
+map <Leader>gp :Gpush<CR>
 map <Leader>gl :Glog<CR>
 map <Leader>gd :Gdiff<CR>
 map <Leader>gc :Gcommit<CR>
