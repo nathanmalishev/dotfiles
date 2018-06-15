@@ -238,6 +238,7 @@ map <Leader>gp :Gpush<CR>
 map <Leader>gl :Glog<CR>
 map <Leader>gd :Gdiff<CR>
 map <Leader>gc :Gcommit<CR>
+map <Leader>gb :Gbrowse<CR>
 
 command Greview :Git! diff --staged
 nnoremap <leader>gr :Greview<cr>
