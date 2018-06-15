@@ -18,6 +18,9 @@ call plug#begin('~/.local/share/nvim/plugged')
 "" flutter & dart
 Plug 'dart-lang/dart-vim-plugin', { 'for': 'dart' }
 
+"" terraform
+Plug 'hashivim/vim-terraform', {'for': 'terraform' }
+
 Plug 'easymotion/vim-easymotion'
 Plug 'neomake/neomake'
 Plug 'scrooloose/nerdcommenter'
@@ -379,5 +382,17 @@ nnoremap <expr> <C-w>> v:count1 * 15 . '<C-w>>'
 
 
 " we have our own shit for jsx & go atm
-let g:polyglot_disabled = [ 'javascript', 'jsx', 'go', 'js']
+let g:polyglot_disabled = [ 'javascript', 'jsx', 'go', 'js', 'terraform']
 autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
+
+"pangloss folding -- could slow down js keep an eye on it
+augroup javascript_folding
+  au!
+  au FileType javascript setlocal foldmethod=syntax
+augroup END
+set foldmethod=indent
+set foldlevel=20
+
+let g:terraform_align=1
+let g:terraform_fold_sections=1
+let g:terraform_fmt_on_save=1
