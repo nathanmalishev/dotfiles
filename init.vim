@@ -116,6 +116,9 @@ let g:EasyMotion_smartcase = 1
 map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
 
+" Move to word
+map  <Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
 
 "" ALE STUFF NEW thing to call linter
 " Put this in vimrc or a plugin file of your own.
@@ -387,12 +390,12 @@ let g:polyglot_disabled = [ 'javascript', 'jsx', 'go', 'js', 'terraform']
 autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
 
 "pangloss folding -- could slow down js keep an eye on it
-augroup javascript_folding
-  au!
-  au FileType javascript setlocal foldmethod=syntax
-augroup END
-set foldmethod=indent
-set foldlevel=20
+"augroup javascript_folding
+  "au!
+  "au FileType javascript setlocal foldmethod=syntax
+"augroup END
+"set foldmethod=indent
+"set foldlevel=20
 
 let g:terraform_align=1
 let g:terraform_fold_sections=1

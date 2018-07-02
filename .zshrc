@@ -102,6 +102,8 @@ source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 export PATH="$HOME/.yarn/bin:$PATH:~/java/apache-maven-3.5.0/bin:$HOME/nathanBin"
 export GOPATH=$HOME/go
 export PATH=$PATH:~/go/bin
+# sam cli
+export PATH=$PATH:/Users/nathan/Library/Python/2.7/bin/
 
 . ~/Apps/z/z.sh
 
