@@ -15,9 +15,6 @@ set expandtab
 let mapleader="\<Space>"
 
 call plug#begin('~/.local/share/nvim/plugged')
-"" flutter & dart
-Plug 'dart-lang/dart-vim-plugin', { 'for': 'dart' }
-
 "" terraform
 Plug 'hashivim/vim-terraform', {'for': 'terraform' }
 
@@ -25,25 +22,18 @@ Plug 'easymotion/vim-easymotion'
 Plug 'neomake/neomake'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
-Plug 'othree/html5.vim', { 'for': ['html', 'javascript'] }
-Plug 'ternjs/tern_for_vim', { 'for': 'javascript' }
+Plug 'othree/html5.vim', { 'for': ['html', 'javascript', 'javascript.jsx'] }
+Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'] }
 
-"Plug 'wikitopian/hardmode'
-"" themes
-Plug 'mhartington/oceanic-next'
-
-Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-Plug 'ruanyl/vim-fixmyjs', { 'for': 'javascript' }
-Plug 'mxw/vim-jsx', { 'for': 'javascript' }
+"javascript
+Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'ruanyl/vim-fixmyjs', { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 " for gbrowse
 Plug 'tpope/vim-rhubarb'
-
-" generate tags
-"Plug 'fntlnz/atags.vim'
-"Plug 'isRuslan/vim-es6'
 
 " project wide search
 Plug 'eugen0329/vim-esearch'
@@ -55,13 +45,13 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'SirVer/ultisnips'
 
 " ES2015 code snippets (Optional)
-Plug 'epilande/vim-es2015-snippets', { 'for': 'javascript' }
+Plug 'epilande/vim-es2015-snippets', { 'for': ['javascript', 'javascript.jsx'] }
 
 " React code snippets
-Plug 'epilande/vim-react-snippets', { 'for': 'javascript' }
+Plug 'epilande/vim-react-snippets', { 'for': ['javascript', 'javascript.jsx'] }
 
 " emmet
-Plug 'mattn/emmet-vim', { 'for': ['html', 'javascript'] }
+Plug 'mattn/emmet-vim', { 'for': ['html', 'javascript.jsx', 'javascript'] }
 
 "easy align
 Plug 'junegunn/vim-easy-align'
@@ -73,9 +63,7 @@ Plug 'benmills/vimux'
 
 " go
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'for': 'go' }
-Plug 'AndrewRadev/splitjoin.vim'
-Plug 'fatih/molokai'
-"Plug 'ctrlpvim/ctrlp.vim' using fuzzy
+
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 
@@ -85,10 +73,16 @@ Plug 'vim-airline/vim-airline-themes'
 
 Plug 'edkolev/tmuxline.vim'
 
-Plug 'xojs/vim-xo', { 'for': 'javascript' }
+"Plug 'xojs/vim-xo', { 'for': ['javascript', 'javascript.jsx'] }
 
 " apparent solution to my life
 Plug 'sheerun/vim-polyglot'
+
+"" unstyled
+Plug 'styled-components/vim-styled-components', { 'branch': 'main', 'for':['javascript', 'javascript.jsx'] }
+
+" new color theme
+Plug 'joshdick/onedark.vim'
 
 call plug#end()
 
@@ -157,29 +151,22 @@ nnoremap <C-p> :FuzzyOpen<CR>
 " jsdocs
 let g:javascript_plugin_jsdoc = 1
 
-" For Neovim 0.1.3 and 0.1.4
-"let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-
-" Or if you have Neovim >= 0.1.5
-"
-if has("termguicolors")     " set true colors
-    set t_8f=\[[38;2;%lu;%lu;%lum
-    set t_8b=\[[48;2;%lu;%lu;%lum
-    set termguicolors
-endif
-"set termguicolors
-"" set Vim-specific sequences for RGB colors
-"let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-"let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-""if (has("termguicolors"))
- ""set termguicolors
-""endif
-"" use 256 colors in terminal
-"set t_Co=256
 "
 " Theme
 syntax enable
-colorscheme OceanicNext
+"colorscheme OceanicNext
+if (has("nvim"))
+  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+endif
+"For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+"Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+" < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+if (has("termguicolors"))
+  set termguicolors
+endif
+let g:onedark_termcolors=256
+colorscheme onedark
 "let g:rehash256 = 1
 
 " Use deoplete.
@@ -192,9 +179,6 @@ autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 "snippets
 let g:UltiSnipsExpandTrigger="<C-l>"
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" generate tags on save
-" autocmd BufWritePost * call atags#generate()
-" random shit to get ctags
 let g:tlist_javascript_settings = 'javascript;r:var;s:string;a:array;o:object;u:function'
 
 
@@ -202,13 +186,6 @@ map <C-n> :NERDTreeToggle<CR>
 "autocmd vimenter * NERDTree
 "autocmd VimEnter * wincmd p
 
-
-
-" easier split screen navigation
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
 
 " set the way splits open - more natural from right and bottom
 set splitbelow
@@ -263,7 +240,7 @@ map <C-]> :cprevious<CR>
 nnoremap <leader>cc :cclose<CR>
 
 autocmd FileType go nmap <leader>tt <Plug>(go-test)
-autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+autocmd FileType go nmap <Leader>tc <Plug>(go-coverage-toggle)
 autocmd FileType go map <leader>tf :GoTestFunc<CR>
 autocmd FileType go map <leader>tm :GoMetaLinter<CR>
 
@@ -280,6 +257,7 @@ let g:go_fmt_fail_silently = 1
 
 autocmd FileType go map <leader>d. :GoDecls<CR>
 autocmd FileType go map <leader>dd :GoDeclsDir<CR>
+au FileType go nmap <Leader>,f <Plug>(go-def-tab)
 
 autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
 autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
@@ -373,7 +351,7 @@ nnoremap <c-g> :GFiles?<cr>
 let g:fzf_layout = { 'down': '~40%' }
 
 " default theme
-let g:airline_theme='deus'
+let g:airline_theme='onedark' "deus
 let g:tmuxline_theme='powerline'
 "let g:airline#extensions#tmuxline#enabled = 0
 
@@ -400,3 +378,22 @@ autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
 let g:terraform_align=1
 let g:terraform_fold_sections=1
 let g:terraform_fmt_on_save=1
+
+
+"" set python
+let g:python_host_prog = '/Users/nathan/.pyenv/versions/neovim2/bin/python'
+let g:python3_host_prog = '/Users/nathan/.pyenv/versions/neovim3/bin/python'
+
+
+" nerd tree ignore css 
+let NERDTreeIgnore = ['\.css$']
+
+let NERDTreeMapOpenSplit='x'
+let NERDTreeMapOpenVSplit='v'
+
+
+" window navigation
+nmap <silent> <A-Up> :wincmd k<CR>
+nmap <silent> <A-Down> :wincmd j<CR>
+nmap <silent> <A-Left> :wincmd h<CR>
+nmap <silent> <A-Right> :wincmd l<CR>
