@@ -105,6 +105,9 @@ export PATH=$PATH:~/go/bin
 # sam cli
 export PATH=$PATH:/Users/nathan/Library/Python/2.7/bin/
 
+# code
+export PATH="$PATH:/user/local/bin/code"
+
 . ~/Apps/z/z.sh
 
 alias nv='nvim'

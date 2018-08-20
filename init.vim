@@ -15,6 +15,8 @@ set expandtab
 let mapleader="\<Space>"
 
 call plug#begin('~/.local/share/nvim/plugged')
+Plug 'vim-scripts/SQLUtilities'
+Plug 'vim-scripts/Align'
 "" terraform
 Plug 'hashivim/vim-terraform', {'for': 'terraform' }
 
@@ -30,7 +32,10 @@ Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'ruanyl/vim-fixmyjs', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'airblade/vim-gitgutter'
+
+"Plug 'airblade/vim-gitgutter'
+Plug 'mhinz/vim-signify'
+
 Plug 'tpope/vim-fugitive'
 " for gbrowse
 Plug 'tpope/vim-rhubarb'
@@ -68,8 +73,9 @@ Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 
 "cool bar
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" it was too slow so we have turned it off
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
 
 Plug 'edkolev/tmuxline.vim'
 
@@ -295,6 +301,7 @@ autocmd FileType js map <Leader>T :VimuxPromptCommand("yarn lint")<CR><CR>
 autocmd FileType javascript.jsx map <Leader>t :VimuxPromptCommand("yarn test")<CR><CR>
 autocmd FileType javascript.jsx map <Leader>T :VimuxPromptCommand("yarn lint")<CR><CR>
 autocmd FileType go map <Leader>r :VimuxPromptCommand("go run -race *.go")<CR><CR>
+autocmd FileType go map <Leader>t :VimuxPromptCommand("go test")<CR><CR>
 
 
 set clipboard=unnamed
@@ -397,3 +404,4 @@ nmap <silent> <A-Up> :wincmd k<CR>
 nmap <silent> <A-Down> :wincmd j<CR>
 nmap <silent> <A-Left> :wincmd h<CR>
 nmap <silent> <A-Right> :wincmd l<CR>
+
