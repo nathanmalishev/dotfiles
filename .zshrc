@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/nathan/.oh-my-zsh
+export ZSH=/Users/nathanmalishev/.oh-my-zsh
 
 # 10ms for key sequences
 KEYTIMEOUT=1
@@ -53,10 +53,10 @@ DISABLE_AUTO_TITLE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git vi-mode)
+plugins=(git vi-mode fzf)
 
 # User configuration
-export ANDROID_HOME="/Users/nathan/Library/Android/sdk"
+export ANDROID_HOME="/Users/nathanmalishev/Library/Android/sdk"
 
 export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/platforms/"/bin:/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/texbin:/usr/local/terraform:/usr/local/gnat/bin:$HOME/coding/flutter/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -88,7 +88,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-export NVM_DIR="/Users/nathan/.nvm"
+export NVM_DIR="/Users/nathanmalishev/.nvm"
 export PATH="$HOME/.rbenv/bin:$PATH"
 
 eval "$(rbenv init -)"
@@ -96,14 +96,14 @@ eval "$(rbenv init -)"
 
 # set -o vi
 set -o vi
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /Users/nathanmalishev/coding/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 
-export PATH="$HOME/.yarn/bin:$PATH:~/java/apache-maven-3.5.0/bin:$HOME/nathanBin"
+export PATH="$HOME/.yarn/bin:$PATH:~/java/apache-maven-3.5.0/bin:$HOME/nathanmalishevBin"
 export GOPATH=$HOME/go
 export PATH=$PATH:~/go/bin
 # sam cli
-export PATH=$PATH:/Users/nathan/Library/Python/2.7/bin/
+export PATH=$PATH:/Users/nathanmalishev/Library/Python/2.7/bin/
 
 # code
 export PATH="$PATH:/user/local/bin/code"
@@ -119,12 +119,15 @@ alias ca='pygmentize -f terminal256 -O style=native -g'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# Set fzf installation directory path
+export FZF_BASE=/usr/local/bin/fzf
+
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /Users/nathan/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/nathan/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh
+[[ -f /Users/nathanmalishev/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/nathanmalishev/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh
 # tabtab source for sls package
 # uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /Users/nathan/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/nathan/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh
+[[ -f /Users/nathanmalishev/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/nathanmalishev/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh
 
 # added by travis gem
-[ -f /Users/nathan/.travis/travis.sh ] && source /Users/nathan/.travis/travis.sh
+[ -f /Users/nathanmalishev/.travis/travis.sh ] && source /Users/nathanmalishev/.travis/travis.sh
