@@ -5,7 +5,6 @@ set shell=/bin/zsh
 set number
 set relativenumber
 
-filetype off
 filetype plugin indent on
 set tabstop=2
 
@@ -15,92 +14,46 @@ set expandtab
 let mapleader="\<Space>"
 
 call plug#begin('~/.local/share/nvim/plugged')
-Plug 'vim-scripts/SQLUtilities'
-Plug 'vim-scripts/Align'
-"" terraform
-Plug 'hashivim/vim-terraform', {'for': 'terraform' }
-
-Plug 'easymotion/vim-easymotion'
-Plug 'neomake/neomake'
-Plug 'scrooloose/nerdcommenter'
-Plug 'tpope/vim-surround'
-Plug 'othree/html5.vim', { 'for': ['html', 'javascript', 'javascript.jsx'] }
-Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'] }
-
-"javascript
-Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'ruanyl/vim-fixmyjs', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-
-"Plug 'airblade/vim-gitgutter'
-Plug 'mhinz/vim-signify'
-
-Plug 'tpope/vim-fugitive'
-" for gbrowse
-Plug 'tpope/vim-rhubarb'
-
-" project wide search
-Plug 'eugen0329/vim-esearch'
-
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-
-"snippets
-Plug 'SirVer/ultisnips'
-
-" ES2015 code snippets (Optional)
-Plug 'epilande/vim-es2015-snippets', { 'for': ['javascript', 'javascript.jsx'] }
-
-" React code snippets
-Plug 'epilande/vim-react-snippets', { 'for': ['javascript', 'javascript.jsx'] }
-
-" emmet
-Plug 'mattn/emmet-vim', { 'for': ['html', 'javascript.jsx', 'javascript'] }
-
-"easy align
-Plug 'junegunn/vim-easy-align'
-
-" call tmux from vim
-Plug 'benmills/vimux'
-" weird kepmapping don't think i use it
-" Plug 'tpope/vim-unimpaired'
-
-" go
-Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'for': 'go' }
-
-Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf.vim'
-
-"cool bar
-" it was too slow so we have turned it off
-"Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
-
-Plug 'edkolev/tmuxline.vim'
-
-"Plug 'xojs/vim-xo', { 'for': ['javascript', 'javascript.jsx'] }
-
-" apparent solution to my life
-Plug 'sheerun/vim-polyglot'
-
-"" unstyled
-Plug 'styled-components/vim-styled-components', { 'branch': 'main', 'for':['javascript', 'javascript.jsx'] }
 
 " new color theme
 Plug 'joshdick/onedark.vim'
 
+Plug 'easymotion/vim-easymotion'
+Plug 'scrooloose/nerdcommenter'
+
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+
+Plug 'tpope/vim-fugitive'
+
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+
+Plug 'tpope/vim-surround'
+
+" go
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'for': 'go' }
+" call tmux from vim
+Plug 'benmills/vimux'
+"Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
+
+Plug 'airblade/vim-gitgutter'
+
+" apparent solution to my life
+Plug 'sheerun/vim-polyglot'
 call plug#end()
+
+let g:ale_lint_on_save = 1
+let g:ale_javascript_eslint_use_global = 0
+let g:ale_linters = {'javascript': ['eslint']}
+let g:ale_fixers = {'javascript': ['eslint']}
+map <Leader>el :ALEFix<CR>
+
 
 :imap jj <Esc>
 :nmap ll :w<CR>
 :nmap jj :q<CR>
-"bind to save file
-"noremap <Leader>ll :w<CR>
-
-
-" tag bar
-"nmap <Leader>p :TagbarToggle<CR>
 
 " <Leader>s{char} to move to {char}
 map  <Leader>s <Plug>(easymotion-bd-f)
@@ -120,37 +73,6 @@ map <Leader>k <Plug>(easymotion-k)
 map  <Leader>w <Plug>(easymotion-bd-w)
 nmap <Leader>w <Plug>(easymotion-overwin-w)
 
-"" ALE STUFF NEW thing to call linter
-" Put this in vimrc or a plugin file of your own.
-" After this is configured, :ALEFix will try and fix your JS code with ESLint.
-"let g:ale_fixers = {
-"\   'javascript': ['eslint'],
-"\}
-
-"" hit el for autofixing
-"nnoremap <leader> el :ALEFix<CR>
-"let g:ale_use_ch_sendraw = 1
-
-"" NEOMAKE STUFF WE USE TO USE
-let g:neomake_javascript_enabled_makers = ['eslint', 'xo']
-let g:neomake_javascript_eslint_exe = $PWD .'/node_modules/.bin/eslint'
-autocmd BufWritePost,BufEnter * Neomake
-function ESLintFix()
-  silent execute "!./node_modules/.bin/eslint --fix %"
-  edit! %
-  Neomake
-endfunction
-
-function XOLintFix()
-  silent execute "!xo --fix %"
-  edit! %
-  Neomake
-endfunction
-
-""" hit el for autofixing
-nnoremap <leader>el :call ESLintFix()<CR>
-nnoremap <leader>xo :call XOLintFix()<CR>
-
 " fuzzy finder
 nnoremap <C-p> :FuzzyOpen<CR>
 
@@ -160,61 +82,14 @@ let g:javascript_plugin_jsdoc = 1
 "
 " Theme
 syntax enable
-"colorscheme OceanicNext
-if (has("nvim"))
-  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-endif
-"For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-"Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-" < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-if (has("termguicolors"))
-  set termguicolors
-endif
-let g:onedark_termcolors=256
+set termguicolors
 colorscheme onedark
-"let g:rehash256 = 1
-
-" Use deoplete.
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_ignore_case = 1
-let g:deoplete#enable_smart_case = 1
-" deoplete tab-complete
-"inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
-"snippets
-let g:UltiSnipsExpandTrigger="<C-l>"
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-let g:tlist_javascript_settings = 'javascript;r:var;s:string;a:array;o:object;u:function'
-
 
 map <C-n> :NERDTreeToggle<CR>
-"autocmd vimenter * NERDTree
-"autocmd VimEnter * wincmd p
-
 
 " set the way splits open - more natural from right and bottom
 set splitbelow
 set splitright
-
-"" jsx is used by .js files
-let g:jsx_ext_required = 0
-
-
-let g:user_emmet_settings = {
-\  'javascript' : {
-\      'extends' : 'jsx',
-\  },
-\}
-
-
-
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
-
-
-" Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
 
 " bind some gitfugitive commands
 map <Leader>gs :Gstatus<CR>
@@ -307,8 +182,8 @@ autocmd FileType go map <Leader>t :VimuxPromptCommand("go test")<CR><CR>
 set clipboard=unnamed
 set autoread
 
-set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set backupdir=~/.vim-tmp
+set directory=~/.vim-tmp
 
 
 "" extra settings stolen of that youtube dude
@@ -371,25 +246,8 @@ nnoremap <expr> <C-w>> v:count1 * 15 . '<C-w>>'
 
 
 " we have our own shit for jsx & go atm
-let g:polyglot_disabled = [ 'javascript', 'jsx', 'go', 'js', 'terraform']
+let g:polyglot_disabled = [ 'go' ]
 autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
-
-"pangloss folding -- could slow down js keep an eye on it
-"augroup javascript_folding
-  "au!
-  "au FileType javascript setlocal foldmethod=syntax
-"augroup END
-"set foldmethod=indent
-"set foldlevel=20
-
-let g:terraform_align=1
-let g:terraform_fold_sections=1
-let g:terraform_fmt_on_save=1
-
-
-"" set python
-let g:python_host_prog = '/Users/nathan/.pyenv/versions/neovim2/bin/python'
-let g:python3_host_prog = '/Users/nathan/.pyenv/versions/neovim3/bin/python'
 
 
 " nerd tree ignore css 
