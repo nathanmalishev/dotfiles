@@ -1,5 +1,6 @@
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/nathanmalishev/.oh-my-zsh
+export PATH="/usr/local/opt/ruby/bin:$PATH"
 
 # 10ms for key sequences
 KEYTIMEOUT=1
@@ -111,6 +112,7 @@ export PATH="$PATH:/user/local/bin/code"
 . ~/Apps/z/z.sh
 
 alias nv='nvim'
+alias mux='tmuxinator'
 alias when='ntfy'
 alias ls='exa'
 # exa:
@@ -131,3 +133,9 @@ export FZF_BASE=/usr/local/bin/fzf
 
 # added by travis gem
 [ -f /Users/nathanmalishev/.travis/travis.sh ] && source /Users/nathanmalishev/.travis/travis.sh
+
+export EDITOR='nvim'
+
+# tabtab source for packages
+# uninstall by removing these lines
+[[ -f ~/.config/tabtab/__tabtab.zsh ]] && . ~/.config/tabtab/__tabtab.zsh || true

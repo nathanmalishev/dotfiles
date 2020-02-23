@@ -92,7 +92,7 @@ set splitbelow
 set splitright
 
 " bind some gitfugitive commands
-map <Leader>gs :Gstatus<CR>
+map <Leader>gs :Gstatus<CR>:20wincmd_<CR>
 map <Leader>ge :Gedit<CR>
 map <Leader>ggp :!git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD)<CR>
 map <Leader>gp :Gpush<CR>
@@ -171,6 +171,8 @@ map <Leader>vl :VimuxRunLastCommand<CR>
 map <Leader>vs :VimuxInterruptRunner<CR>
 
 " Prompt for a command to run yarn test
+autocmd FileType javascript map <Leader>t :VimuxPromptCommand("yarn test")<CR><CR>
+autocmd FileType javascript map <Leader>T :VimuxPromptCommand("yarn lint")<CR><CR>
 autocmd FileType js map <Leader>t :VimuxPromptCommand("yarn test")<CR><CR>
 autocmd FileType js map <Leader>T :VimuxPromptCommand("yarn lint")<CR><CR>
 autocmd FileType javascript.jsx map <Leader>t :VimuxPromptCommand("yarn test")<CR><CR>
@@ -263,3 +265,11 @@ nmap <silent> <A-Down> :wincmd j<CR>
 nmap <silent> <A-Left> :wincmd h<CR>
 nmap <silent> <A-Right> :wincmd l<CR>
 
+
+" easier pastin
+" Yank text to the OS X clipboard
+noremap <leader>y "*y
+noremap <leader>yy "*Y
+
+" Preserve indentation while pasting text from the OS X clipboard
+noremap <leader>p :set paste<CR>:put  *<CR>:set nopaste<CR>
