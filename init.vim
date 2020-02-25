@@ -257,6 +257,12 @@ let g:polyglot_disabled = [ 'go' ]
 autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
 
 
+let NERDCreateDefaultMappings=0
+map <leader>cs <plug>NERDCommenterMinimal
+map <leader>c$ <plug>NERDCommenterToEOL
+map <leader>ca <plug>NERDCommenterAppend
+map <leader>c<space> <plug>NERDCommenterToggle
+
 " nerd tree ignore css 
 let NERDTreeIgnore = ['\.css$']
 
