@@ -35,7 +35,7 @@ Plug 'tpope/vim-surround'
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'for': 'go' }
 " call tmux from vim
 Plug 'benmills/vimux'
-"Plug 'w0rp/ale'
+
 Plug 'dense-analysis/ale'
 
 Plug 'airblade/vim-gitgutter'
@@ -101,7 +101,7 @@ map <Leader>gd :Gdiff<CR>
 map <Leader>gc :Gcommit<CR>
 map <Leader>gb :Gbrowse<CR>
 
-command Greview :Git! diff --staged
+command! Greview :Git! diff --staged
 nnoremap <leader>gr :Greview<cr>
 
 " go stuff
@@ -115,9 +115,14 @@ function! s:build_go_files()
   endif
 endfunction
 
+" disables <C-[> as go pop/go exploration
+let g:go_def_mapping_enabled = 0
+map gd :GoDef<CR>
+map gt :GoDefPop<CR>
+
 autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
-map <C-[> :cnext<CR>
-map <C-]> :cprevious<CR>
+noremap <C-[> :cnext<CR>
+noremap <C-]> :cprevious<CR>
 nnoremap <leader>cc :cclose<CR>
 
 autocmd FileType go nmap <leader>tt <Plug>(go-test)

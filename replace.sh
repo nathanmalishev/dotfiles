@@ -1,22 +1,22 @@
 ## start with zsh
 rm ~/.zshrc
-ln -s ./zshrc ~/.zshrc
+ln -s /Users/nathanmalishev/Coding/dotfiles/.zshrc /Users/nathanmalishev/.zshrc
 
-rm ~/User/nathan/.oh-my-zsh/themes/geoffgarside.zsh-theme
-ln -s ./geoffgarside.zsh-theme ~/User/nathan/.oh-my-zsh/themes/geoffgarside.zsh-theme
+rm ~/.oh-my-zsh/themes/geoffgarside.zsh-theme
+ln -s /Users/nathanmalishev/Coding/dotfiles/geoffgarside.zsh-theme /Users/nathanmalishev/.oh-my-zsh/themes/geoffgarside.zsh-theme
 
 
 ## tmux conf
 rm ~/.tmux.conf
-ln -s ./.tmux.conf ~/.tmux.conf
+ln -s /Users/nathanmalishev/Coding/dotfiles/.tmux.conf /Users/nathanmalishev/.tmux.conf
 
 ## alacritty
 rm ~/.config/alacritty/alacritty.yml
-ln -s ./alacritty.yml ~/.config/alacritty/alacritty.yml
+ln -s /Users/nathanmalishev/Coding/dotfiles/alacritty.yml /Users/nathanmalishev/.config/alacritty/alacritty.yml
 
 ## nvim
-rm ~/configs/init.vim
-ln -s ./init.vim ~/configs/init.vim
+rm ~/.config/nvim/init.vim
+ln -s /Users/nathanmalisev/Coding/dotfiles/init.vim /Users/nathanmalishev/.config/nvim/init.vim
 
 ## tmux script
 cp ./tm /usr/local/bin/tm
