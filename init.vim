@@ -49,6 +49,7 @@ let g:ale_javascript_eslint_use_global = 0
 let g:ale_linters = {'javascript': ['eslint']}
 let g:ale_fixers = {'javascript': ['eslint']}
 map <Leader>el :ALEFix<CR>
+autocmd FileType go map <Leader>el :GoBuild<CR><CR>
 
 
 :imap jj <Esc>
@@ -118,7 +119,8 @@ endfunction
 " disables <C-[> as go pop/go exploration
 let g:go_def_mapping_enabled = 0
 map gd :GoDef<CR>
-map gt :GoDefPop<CR>
+map <leader>gt :GoDefPop<CR>
+map <leader>uc :GoSameIdsAutoToggle<CR>
 
 autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 noremap <C-[> :cnext<CR>
