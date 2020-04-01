@@ -18,6 +18,9 @@ call plug#begin('~/.local/share/nvim/plugged')
 " new color theme
 Plug 'joshdick/onedark.vim'
 
+" faster html
+Plug 'mattn/emmet-vim'
+
 Plug 'easymotion/vim-easymotion'
 Plug 'scrooloose/nerdcommenter'
 
@@ -33,6 +36,7 @@ Plug 'tpope/vim-surround'
 
 " go
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'for': 'go' }
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 " call tmux from vim
 Plug 'benmills/vimux'
 
@@ -40,17 +44,27 @@ Plug 'dense-analysis/ale'
 
 Plug 'airblade/vim-gitgutter'
 
+Plug 'posva/vim-vue'
+
+Plug 'andys8/vim-elm-syntax'
+
 " apparent solution to my life
 Plug 'sheerun/vim-polyglot'
 call plug#end()
 
+
+"elm
+autocmd BufWrite *.elm :call CocAction('format')
+
+
 let g:ale_lint_on_save = 1
 let g:ale_javascript_eslint_use_global = 0
-let g:ale_linters = {'javascript': ['eslint']}
-let g:ale_fixers = {'javascript': ['eslint']}
+let g:ale_linter_aliases = {'vue': ['vue', 'javascript']}
+let g:ale_linters = {'javascript': ['eslint'], 'vue': ['eslint']}
+let g:ale_fixers = {'javascript': ['eslint'], 'vue': ['eslint']}
+
 map <Leader>el :ALEFix<CR>
 autocmd FileType go map <Leader>el :GoBuild<CR><CR>
-
 
 :imap jj <Esc>
 :nmap ll :w<CR>
@@ -117,6 +131,9 @@ function! s:build_go_files()
 endfunction
 
 " disables <C-[> as go pop/go exploration
+"let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
+"let g:go_metalinter_command = "golangci-lint"
+
 let g:go_def_mapping_enabled = 0
 map gd :GoDef<CR>
 map <leader>gt :GoDefPop<CR>
@@ -255,7 +272,7 @@ nnoremap <expr> <C-w>> v:count1 * 15 . '<C-w>>'
 
 
 " we have our own shit for jsx & go atm
-let g:polyglot_disabled = [ 'go' ]
+let g:polyglot_disabled = [ 'go', 'vue', 'coffee-script', 'elm' ]
 autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
 
 
@@ -286,3 +303,57 @@ noremap <leader>yy "*Y
 
 " Preserve indentation while pasting text from the OS X clipboard
 noremap <leader>p :set paste<CR>:put  *<CR>:set nopaste<CR>
+
+
+" enable emmet just for html/css
+let g:user_emmet_install_global = 0
+
+
+" below for coc
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+autocmd FileType html,css,vue EmmetInstall
+
+
+" Use U to show documentation in preview window
+nnoremap <silent> U :call <SID>show_documentation()<CR>
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" if hidden is not set, TextEdit might fail.
+set hidden
+" Better display for messages
+set cmdheight=2
+" Smaller updatetime for CursorHold & CursorHoldI
+set updatetime=300
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+" always show signcolumns
+set signcolumn=yes
+
+
+" Remap keys for gotos
+" i like being able to 'pop' so using :GoDef for go, but coc-def for else
+autocmd FileType elm nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+
+" Use `[c` and `]c` to navigate diagnostics
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
