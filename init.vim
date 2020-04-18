@@ -100,7 +100,9 @@ syntax enable
 set termguicolors
 colorscheme onedark
 
-map <C-n> :NERDTreeToggle<CR>
+
+map <C-m> :NERDTreeToggle<CR>
+map <C-n> :NERDTreeFind<CR>
 
 " set the way splits open - more natural from right and bottom
 set splitbelow
@@ -357,3 +359,9 @@ nmap <silent> gr <Plug>(coc-references)
 " Use `[c` and `]c` to navigate diagnostics
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
 nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+
+" Show signature help on placeholder jump
+autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+
+hi! CocErrorSign guifg=#d1666a
