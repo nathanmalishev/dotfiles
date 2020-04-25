@@ -286,6 +286,7 @@ map <leader>c<space> <plug>NERDCommenterToggle
 
 " nerd tree ignore css 
 let NERDTreeIgnore = ['\.css$']
+let NERDTreeShowHidden=1
 
 let NERDTreeMapOpenSplit='x'
 let NERDTreeMapOpenVSplit='v'
