@@ -40,7 +40,7 @@ Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 " call tmux from vim
 Plug 'benmills/vimux'
 
-Plug 'dense-analysis/ale'
+Plug 'dense-analysis/ale', {'for': 'javascript'}
 
 Plug 'airblade/vim-gitgutter'
 
@@ -50,12 +50,12 @@ Plug 'andys8/vim-elm-syntax'
 
 " apparent solution to my life
 Plug 'sheerun/vim-polyglot'
+Plug 'shmup/vim-sql-syntax'
 call plug#end()
 
 
 "elm
 autocmd BufWrite *.elm :call CocAction('format')
-
 
 let g:ale_lint_on_save = 1
 let g:ale_javascript_eslint_use_global = 0
@@ -64,7 +64,6 @@ let g:ale_linters = {'javascript': ['eslint'], 'vue': ['eslint']}
 let g:ale_fixers = {'javascript': ['eslint'], 'vue': ['eslint']}
 
 map <Leader>el :ALEFix<CR>
-autocmd FileType go map <Leader>el :GoBuild<CR><CR>
 
 :imap jj <Esc>
 :nmap ll :w<CR>
@@ -133,8 +132,9 @@ function! s:build_go_files()
 endfunction
 
 " disables <C-[> as go pop/go exploration
-"let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
-"let g:go_metalinter_command = "golangci-lint"
+autocmd BufWritePost *.go call go#lint#Golint(1)
+let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
+let g:go_metalinter_command = "golangci-lint"
 
 let g:go_def_mapping_enabled = 0
 map gd :GoDef<CR>
@@ -151,7 +151,7 @@ autocmd FileType go nmap <Leader>tc <Plug>(go-coverage-toggle)
 autocmd FileType go map <leader>tf :GoTestFunc<CR>
 autocmd FileType go map <leader>tm :GoMetaLinter<CR>
 
-autocmd FileType go map <leader>a :GoAlternate<CR>
+autocmd FileType go map <leader>ta :GoAlternate<CR>
 
 "automatically shows type info
 let g:go_auto_type_info = 1
@@ -274,7 +274,7 @@ nnoremap <expr> <C-w>> v:count1 * 15 . '<C-w>>'
 
 
 " we have our own shit for jsx & go atm
-let g:polyglot_disabled = [ 'go', 'vue', 'coffee-script', 'elm' ]
+let g:polyglot_disabled = [ 'go', 'vue', 'coffee-script', 'elm', 'sql' ]
 autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
 
 
@@ -350,6 +350,7 @@ set signcolumn=yes
 
 
 " Remap keys for gotos
+" <space>gt is pop
 " i like being able to 'pop' so using :GoDef for go, but coc-def for else
 autocmd FileType elm nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -366,3 +367,4 @@ nmap <silent> ]c <Plug>(coc-diagnostic-next)
 autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 
 hi! CocErrorSign guifg=#d1666a
+
