@@ -65,9 +65,12 @@ let g:ale_fixers = {'javascript': ['eslint'], 'vue': ['eslint']}
 
 map <Leader>el :ALEFix<CR>
 
-:imap jj <Esc>
-:nmap ll :w<CR>
-:nmap jj :q<CR>
+imap jj <Esc>
+nmap ll :w<CR>
+nmap jj :q<CR>
+
+noremap K <up>
+noremap k <down>
 
 " <Leader>s{char} to move to {char}
 map  <Leader>s <Plug>(easymotion-bd-f)
@@ -87,6 +90,12 @@ map <Leader>k <Plug>(easymotion-k)
 map  <Leader>w <Plug>(easymotion-bd-w)
 nmap <Leader>w <Plug>(easymotion-overwin-w)
 
+
+" replacing vims searcher
+" Gif config
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+
 " fuzzy finder
 nnoremap <C-p> :FuzzyOpen<CR>
 
@@ -97,7 +106,15 @@ let g:javascript_plugin_jsdoc = 1
 " Theme
 syntax enable
 set termguicolors
-colorscheme onedark
+" in your .vimrc or init.vim
+" if you use airline / lightline
+ colorscheme onedark
+
+" default theme
+let g:airline_theme='onedark' "  deus
+let g:tmuxline_theme='powerline'
+"let g:airline#extensions#tmuxline#enabled = 0
+
 
 
 map <C-m> :NERDTreeToggle<CR>
@@ -136,9 +153,11 @@ autocmd BufWritePost *.go call go#lint#Golint(1)
 let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
 let g:go_metalinter_command = "golangci-lint"
 
+" disable |K| for goDoc
+let g:go_doc_keywordprg_enabled = 0
 let g:go_def_mapping_enabled = 0
 map gd :GoDef<CR>
-map <leader>gt :GoDefPop<CR>
+map gD :GoDefPop<CR>
 map <leader>uc :GoSameIdsAutoToggle<CR>
 
 autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
@@ -159,7 +178,7 @@ autocmd FileType go nmap <Leader>i <Plug>(go-info)
 set updatetime=500
 
 " highlights matching words
-let g:go_auto_sameids = 1
+let g:go_auto_sameids = 0
 let g:go_fmt_fail_silently = 1
 
 autocmd FileType go map <leader>d. :GoDecls<CR>
@@ -260,12 +279,6 @@ nnoremap <c-g> :GFiles?<cr>
 " - down / up / left / right
 let g:fzf_layout = { 'down': '~40%' }
 
-" default theme
-let g:airline_theme='onedark' "deus
-let g:tmuxline_theme='powerline'
-"let g:airline#extensions#tmuxline#enabled = 0
-
-
 " faster resizing
 nnoremap <expr> <C-w>+ v:count1 * 15 . '<C-w>+'
 nnoremap <expr> <C-w>- v:count1 * 15 . '<C-w>-'
@@ -355,6 +368,7 @@ set signcolumn=yes
 autocmd FileType elm nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
+map gI :GoDoc<CR>
 nmap <silent> gr <Plug>(coc-references)
 
 
@@ -368,3 +382,29 @@ autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 
 hi! CocErrorSign guifg=#d1666a
 
+" rotated screen settings
+let g:fzf_layout = { 'up' : '~40%' }
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * *zz
+nnoremap # #zz
+"set cmdheight=4
+
+"augroup VCenterCursor
+"  au!
+"  au BufEnter,WinEnter,WinNew,VimResized *,*.*
+"        \ let &scrolloff=winheight(win_getid())/2
+"augroup END
+
+"" hard
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
+
+
+"" fold settings
+set foldmethod=indent
+set nofoldenable        "dont fold by default
+set foldlevel=1         
+set foldnestmax=10
