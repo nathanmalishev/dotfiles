@@ -29,7 +29,8 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 
 Plug 'tpope/vim-fugitive'
 
-Plug '/usr/local/opt/fzf'
+"Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 Plug 'tpope/vim-surround'
@@ -51,7 +52,15 @@ Plug 'andys8/vim-elm-syntax'
 " apparent solution to my life
 Plug 'sheerun/vim-polyglot'
 Plug 'shmup/vim-sql-syntax'
+
+
+" snips
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+Plug 'garbas/vim-snipmate'
+
 call plug#end()
+
 
 
 "elm
@@ -277,7 +286,7 @@ nnoremap <c-p> :GFiles<cr>
 nnoremap <c-g> :GFiles?<cr>
 " Default fzf layout
 " - down / up / left / right
-let g:fzf_layout = { 'down': '~40%' }
+"let g:fzf_layout = { 'down': '~40%' }
 
 " faster resizing
 nnoremap <expr> <C-w>+ v:count1 * 15 . '<C-w>+'
@@ -383,7 +392,10 @@ autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 hi! CocErrorSign guifg=#d1666a
 
 " rotated screen settings
-let g:fzf_layout = { 'up' : '~40%' }
+"let g:fzf_layout = { 'up' : '~60%' }
+"let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.6 } }
+let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4 --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
 nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *zz
@@ -408,3 +420,7 @@ set foldmethod=indent
 set nofoldenable        "dont fold by default
 set foldlevel=1         
 set foldnestmax=10
+
+imap <C-J> <Plug>snipMateTrigger
+
+
