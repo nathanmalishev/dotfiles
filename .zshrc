@@ -145,3 +145,4 @@ fi
 
 
 export BAT_THEME="DarkNeon"
+if [ -e /Users/nathanmalishev/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/nathanmalishev/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

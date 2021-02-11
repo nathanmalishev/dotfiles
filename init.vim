@@ -1,5 +1,7 @@
 syntax on
 
+let g:polyglot_disabled = [ 'go', 'vue', 'coffee-script', 'elm', 'sql']
+
 set shell=/bin/zsh
 
 set number
@@ -59,6 +61,11 @@ Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 Plug 'garbas/vim-snipmate'
 
+"Plug 'elixir-editors/vim-elixir' -- included in vim polygot
+Plug 'elixir-lsp/coc-elixir', {'do': 'yarn install && yarn prepack'}
+Plug 'mhinz/vim-mix-format'
+
+Plug 'tpope/vim-abolish'
 call plug#end()
 
 
@@ -295,8 +302,6 @@ nnoremap <expr> <C-w>< v:count1 * 15 . '<C-w><'
 nnoremap <expr> <C-w>> v:count1 * 15 . '<C-w>>'
 
 
-" we have our own shit for jsx & go atm
-let g:polyglot_disabled = [ 'go', 'vue', 'coffee-script', 'elm', 'sql' ]
 autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
 
 
@@ -375,6 +380,7 @@ set signcolumn=yes
 " <space>gt is pop
 " i like being able to 'pop' so using :GoDef for go, but coc-def for else
 autocmd FileType elm nmap <silent> gd <Plug>(coc-definition)
+autocmd FileType elixir nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 map gI :GoDoc<CR>
@@ -418,9 +424,18 @@ noremap <Right> <Nop>
 "" fold settings
 set foldmethod=indent
 set nofoldenable        "dont fold by default
-set foldlevel=1         
+set foldlevel=1
 set foldnestmax=10
 
-imap <C-J> <Plug>snipMateTrigger
+"FileType elixir imap <C-f> :set foldlevel=1
 
+imap <C-J> <Plug>snipMateNextOrTrigger
+smap <C-J> <Plug>snipMateNextOrTrigger
 
+imap <C-K> <Plug>snipMateBack
+smap <C-K> <Plug>snipMateBack
+
+" elixir format on save -- sort of works need a better solution
+let g:mix_format_on_save = 1
+let g:mix_format_silent_errors = 1
+let g:mix_format_options = '--check-equivalent'
