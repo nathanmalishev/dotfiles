@@ -38,8 +38,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-surround'
 
 " go
-Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'for': 'go' }
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'for': 'go' }
+" Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 " call tmux from vim
 Plug 'benmills/vimux'
 
@@ -47,9 +47,9 @@ Plug 'dense-analysis/ale', {'for': 'javascript'}
 
 Plug 'airblade/vim-gitgutter'
 
-Plug 'posva/vim-vue'
+" Plug 'posva/vim-vue'
 
-Plug 'andys8/vim-elm-syntax'
+" Plug 'andys8/vim-elm-syntax'
 
 " apparent solution to my life
 Plug 'sheerun/vim-polyglot'

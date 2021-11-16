@@ -1,6 +1,9 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/nathanmalishev/.oh-my-zsh
+export ZSH=/Users/nathan/.oh-my-zsh
 export PATH="/usr/local/opt/ruby/bin:$PATH"
+
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/nathan/.zprofile
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # 10ms for key sequences
 KEYTIMEOUT=1
@@ -54,12 +57,9 @@ DISABLE_AUTO_TITLE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git vi-mode fzf)
+plugins=(git vi-mode fzf asdf)
 
 # User configuration
-export ANDROID_HOME="/Users/nathanmalishev/Library/Android/sdk"
-
-export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/platforms/"/usr/local/sbin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -89,27 +89,11 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-export NVM_DIR="/Users/nathanmalishev/.nvm"
-export PATH="$HOME/.rbenv/bin:$PATH"
-
-eval "$(rbenv init -)"
-
+export NVM_DIR="/Users/nathan/.nvm"
 
 # set -o vi
 set -o vi
-source /Users/nathanmalishev/coding/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-
-export PATH="$HOME/.yarn/bin:$PATH:~/java/apache-maven-3.5.0/bin:$HOME/nathanmalishevBin"
-export GOPATH=$HOME/go
-export PATH=$PATH:~/go/bin
-# sam cli
-export PATH=$PATH:/Users/nathanmalishev/Library/Python/2.7/bin/
-
-# code
-export PATH="$PATH:/user/local/bin/code"
-
-. ~/Apps/z/z.sh
 
 alias nv='nvim'
 alias mux='tmuxinator'
@@ -126,13 +110,13 @@ export FZF_BASE=/usr/local/bin/fzf
 
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /Users/nathanmalishev/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/nathanmalishev/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh
+[[ -f /Users/nathan/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/nathan/.config/yarn/global/node_modules/tabtab/.completions/serverless.zsh
 # tabtab source for sls package
 # uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /Users/nathanmalishev/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/nathanmalishev/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh
+[[ -f /Users/nathan/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/nathan/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh
 
 # added by travis gem
-[ -f /Users/nathanmalishev/.travis/travis.sh ] && source /Users/nathanmalishev/.travis/travis.sh
+[ -f /Users/nathan/.travis/travis.sh ] && source /Users/nathan/.travis/travis.sh
 
 export EDITOR='nvim'
 
@@ -145,4 +129,6 @@ fi
 
 
 export BAT_THEME="DarkNeon"
-if [ -e /Users/nathanmalishev/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/nathanmalishev/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+if [ -e /Users/nathan/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/nathan/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+
+source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
