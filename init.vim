@@ -37,9 +37,6 @@ Plug 'junegunn/fzf.vim'
 
 Plug 'tpope/vim-surround'
 
-" go
-" Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'for': 'go' }
-" Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 " call tmux from vim
 Plug 'benmills/vimux'
 
@@ -62,6 +59,7 @@ Plug 'tomtom/tlib_vim'
 Plug 'garbas/vim-snipmate'
 
 "Plug 'elixir-editors/vim-elixir' -- included in vim polygot
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'elixir-lsp/coc-elixir', {'do': 'yarn install && yarn prepack'}
 Plug 'mhinz/vim-mix-format'
 
@@ -381,10 +379,12 @@ set signcolumn=yes
 " i like being able to 'pop' so using :GoDef for go, but coc-def for else
 autocmd FileType elm nmap <silent> gd <Plug>(coc-definition)
 autocmd FileType elixir nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-map gI :GoDoc<CR>
+autocmd FileType nmap <silent> gy <Plug>(coc-type-definition)
+autocmd FileType go nmap <silent> gi <Plug>(coc-implementation)
+autocmd FileType go map gI :GoDoc<CR>
 nmap <silent> gr <Plug>(coc-references)
+inoremap <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
+nnoremap <silent><nowait> gu  :<C-u>CocList diagnostics<cr>
 
 
 " Use `[c` and `]c` to navigate diagnostics
@@ -439,3 +439,4 @@ smap <C-K> <Plug>snipMateBack
 let g:mix_format_on_save = 1
 let g:mix_format_silent_errors = 1
 let g:mix_format_options = '--check-equivalent'
+
