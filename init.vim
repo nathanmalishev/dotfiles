@@ -56,7 +56,6 @@ Plug 'shmup/vim-sql-syntax'
 " snips
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
-Plug 'garbas/vim-snipmate'
 
 "Plug 'elixir-editors/vim-elixir' -- included in vim polygot
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -337,24 +336,29 @@ noremap <leader>p :set paste<CR>:put  *<CR>:set nopaste<CR>
 let g:user_emmet_install_global = 0
 
 
-" below for coc
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+" tab for coc
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-function! s:check_back_space() abort
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice.
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
 " Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-autocmd FileType html,css,vue EmmetInstall
-
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
 
 " Use U to show documentation in preview window
 nnoremap <silent> U :call <SID>show_documentation()<CR>
@@ -429,14 +433,11 @@ set foldnestmax=10
 
 "FileType elixir imap <C-f> :set foldlevel=1
 
-imap <C-J> <Plug>snipMateNextOrTrigger
-smap <C-J> <Plug>snipMateNextOrTrigger
-
-imap <C-K> <Plug>snipMateBack
-smap <C-K> <Plug>snipMateBack
-
 " elixir format on save -- sort of works need a better solution
 let g:mix_format_on_save = 1
 let g:mix_format_silent_errors = 1
 let g:mix_format_options = '--check-equivalent'
 
+
+"" filetype for surface - elixir component lib
+autocmd BufNewFile,BufRead *.sface set ft=elixir
