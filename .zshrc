@@ -1,9 +1,5 @@
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/nathan/.oh-my-zsh
-export PATH="/usr/local/opt/ruby/bin:$PATH"
-
-echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/nathan/.zprofile
-eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # 10ms for key sequences
 KEYTIMEOUT=1
@@ -57,7 +53,7 @@ DISABLE_AUTO_TITLE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git vi-mode fzf asdf)
+plugins=(git vi-mode fzf)
 
 # User configuration
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -91,17 +87,15 @@ source $ZSH/oh-my-zsh.sh
 
 export NVM_DIR="/Users/nathan/.nvm"
 
+
 # set -o vi
 set -o vi
+echo "source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ${ZDOTDIR:-$HOME}/.zshrc
 
+export PATH="$HOME/.yarn/bin:$PATH:~/java/apache-maven-3.5.0/bin:$HOME/nathanBin"
 
 alias nv='nvim'
-alias mux='tmuxinator'
 alias when='ntfy'
-alias ls='exa'
-# exa:
-alias la="exa -abghl --git --color=automatic"
-alias ca='pygmentize -f terminal256 -O style=native -g'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -114,21 +108,3 @@ export FZF_BASE=/usr/local/bin/fzf
 # tabtab source for sls package
 # uninstall by removing these lines or running `tabtab uninstall sls`
 [[ -f /Users/nathan/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/nathan/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh
-
-# added by travis gem
-[ -f /Users/nathan/.travis/travis.sh ] && source /Users/nathan/.travis/travis.sh
-
-export EDITOR='nvim'
-
-# tabtab source for packages
-# uninstall by removing these lines
-[[ -f ~/.config/tabtab/__tabtab.zsh ]] && . ~/.config/tabtab/__tabtab.zsh || true
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
-
-
-export BAT_THEME="DarkNeon"
-if [ -e /Users/nathan/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/nathan/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-
-source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
