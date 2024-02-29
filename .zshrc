@@ -108,3 +108,4 @@ export FZF_BASE=/usr/local/bin/fzf
 # tabtab source for sls package
 # uninstall by removing these lines or running `tabtab uninstall sls`
 [[ -f /Users/nathan/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/nathan/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
