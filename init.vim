@@ -1,7 +1,5 @@
 syntax on
 
-"let g:polyglot_disabled = [ 'go', 'vue', 'coffee-script', 'elm', 'sql']
-
 set shell=/bin/zsh
 
 set number
@@ -20,23 +18,14 @@ call plug#begin('~/.local/share/nvim/plugged')
 " new color theme
 Plug 'joshdick/onedark.vim'
 
-" faster html
-Plug 'mattn/emmet-vim'
-
 Plug 'easymotion/vim-easymotion'
 Plug 'scrooloose/nerdcommenter'
 
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-
 Plug 'tpope/vim-fugitive'
-
 Plug 'tpope/vim-surround'
 
 " call tmux from vim
 Plug 'benmills/vimux'
-
-Plug 'dense-analysis/ale', {'for': 'javascript'}
 
 Plug 'airblade/vim-gitgutter'
 
@@ -44,23 +33,9 @@ Plug 'airblade/vim-gitgutter'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 
-Plug 'mhinz/vim-mix-format'
-
 Plug 'tpope/vim-abolish'
 call plug#end()
 
-
-
-"elm
-autocmd BufWrite *.elm :call CocAction('format')
-
-let g:ale_lint_on_save = 1
-let g:ale_javascript_eslint_use_global = 0
-let g:ale_linter_aliases = {'vue': ['vue', 'javascript']}
-let g:ale_linters = {'javascript': ['eslint'], 'vue': ['eslint']}
-let g:ale_fixers = {'javascript': ['eslint'], 'vue': ['eslint']}
-
-map <Leader>el :ALEFix<CR>
 
 nmap ll :w<CR>
 inoremap jj <Esc>
@@ -104,10 +79,6 @@ set termguicolors
 let g:airline_theme='onedark' "  deus
 let g:tmuxline_theme='powerline'
 "let g:airline#extensions#tmuxline#enabled = 0
-
-map <C-m> :NERDTreeToggle<CR>
-map <C-n> :NERDTreeFind<CR>
-map <C-c> :NERDTreeClose<CR>
 
 " set the way splits open - more natural from right and bottom
 set splitbelow
@@ -209,13 +180,6 @@ map <leader>c$ <plug>NERDCommenterToEOL
 map <leader>ca <plug>NERDCommenterAppend
 map <leader>c<space> <plug>NERDCommenterToggle
 
-" nerd tree ignore css 
-let NERDTreeIgnore = ['\.css$']
-let NERDTreeShowHidden=1
-
-let NERDTreeMapOpenSplit='x'
-let NERDTreeMapOpenVSplit='v'
-
 
 " window navigation
 nmap <silent> <A-Up> :wincmd k<CR>
@@ -269,12 +233,6 @@ set foldlevel=1
 set foldnestmax=10
 
 "FileType elixir imap <C-f> :set foldlevel=1
-
-" elixir format on save -- sort of works need a better solution
-let g:mix_format_on_save = 1
-let g:mix_format_silent_errors = 1
-let g:mix_format_options = '--check-equivalent'
-
 
 "" filetype for surface - elixir component lib
 autocmd BufNewFile,BufRead *.sface set ft=elixir

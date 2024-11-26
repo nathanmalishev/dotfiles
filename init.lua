@@ -22,6 +22,17 @@ require('packer').startup(function(use)
     }
 
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+
+    use {
+      "nvim-neo-tree/neo-tree.nvim",
+        branch = "v3.x",
+        requires = { 
+          "nvim-lua/plenary.nvim",
+          "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+          "MunifTanjim/nui.nvim",
+          -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+        }
+      }
 end)
 
 vim.cmd('source ~/.config/nvim/init.vim')
@@ -71,6 +82,17 @@ lspconfig.elixirls.setup({
       fetchDeps = false,
     },
   },
+   on_attach = function(client, bufnr)
+    -- Enable formatting on save
+    if client.server_capabilities.documentFormattingProvider then
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        buffer = bufnr,
+        callback = function()
+          vim.lsp.buf.format({ async = false })
+        end,
+      })
+    end
+  end,
 })
 require('telescope').setup {
   extensions = {
@@ -95,3 +117,20 @@ vim.keymap.set('n', '<leader>fg', builtin.git_files, { desc = 'Telescope git fil
 vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
 
+
+-- Lua configuration for Neovim with Neo-tree
+
+-- Toggle Neo-tree with <C-m>
+vim.keymap.set('n', '<C-m>', function()
+  vim.cmd('Neotree toggle')
+end, { desc = 'Toggle Neo-tree' })
+
+-- Find the current file in Neo-tree with <C-n>
+vim.keymap.set('n', '<C-n>', function()
+  vim.cmd('Neotree reveal')
+end, { desc = 'Reveal file in Neo-tree' })
+
+-- Close Neo-tree with <C-c>
+vim.keymap.set('n', '<C-c>', function()
+  vim.cmd('Neotree close')
+end, { desc = 'Close Neo-tree' })
