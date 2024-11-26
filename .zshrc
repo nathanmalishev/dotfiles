@@ -90,9 +90,8 @@ export NVM_DIR="/Users/nathan/.nvm"
 
 # set -o vi
 set -o vi
-echo "source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ${ZDOTDIR:-$HOME}/.zshrc
 
-export PATH="$HOME/.yarn/bin:$PATH:~/java/apache-maven-3.5.0/bin:$HOME/nathanBin"
+export PATH="$HOME/.yarn/bin:$PATH:~/java/apache-maven-3.5.0/bin:$HOME/nathanBin:$HOME"
 
 alias nv='nvim'
 alias when='ntfy'
@@ -109,3 +108,4 @@ export FZF_BASE=/usr/local/bin/fzf
 # uninstall by removing these lines or running `tabtab uninstall sls`
 [[ -f /Users/nathan/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/nathan/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
