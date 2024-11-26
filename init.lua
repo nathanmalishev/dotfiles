@@ -33,6 +33,14 @@ require('packer').startup(function(use)
           -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
         }
       }
+
+
+    use {
+      'numToStr/Comment.nvim',
+      config = function()
+        require('Comment').setup()
+      end
+    }
 end)
 
 vim.cmd('source ~/.config/nvim/init.vim')
@@ -134,3 +142,7 @@ end, { desc = 'Reveal file in Neo-tree' })
 vim.keymap.set('n', '<C-c>', function()
   vim.cmd('Neotree close')
 end, { desc = 'Close Neo-tree' })
+
+-- Toggle comments for the current line or selection
+vim.keymap.set('n', '<leader>cs', '<Plug>(comment_toggle_linewise_current)', { desc = 'Toggle comment' })
+vim.keymap.set('x', '<leader>cs', '<Plug>(comment_toggle_linewise_visual)', { desc = 'Toggle comment in visual mode' })

@@ -19,7 +19,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'joshdick/onedark.vim'
 
 Plug 'easymotion/vim-easymotion'
-Plug 'scrooloose/nerdcommenter'
 
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
@@ -172,13 +171,6 @@ nnoremap <expr> <C-w>> v:count1 * 15 . '<C-w>>'
 
 
 autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
-
-
-let NERDCreateDefaultMappings=0
-map <leader>cs <plug>NERDCommenterToggle
-map <leader>c$ <plug>NERDCommenterToEOL
-map <leader>ca <plug>NERDCommenterAppend
-map <leader>c<space> <plug>NERDCommenterToggle
 
 
 " window navigation
