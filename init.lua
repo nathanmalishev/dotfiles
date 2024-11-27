@@ -41,8 +41,28 @@ require('packer').startup(function(use)
         require('Comment').setup()
       end
     }
+
+    use({
+        'ray-x/navigator.lua',
+        requires = {
+            { 'ray-x/guihua.lua', run = 'cd lua/fzy && make' },
+            { 'neovim/nvim-lspconfig' },
+        },
+    })
+
+    use 'navarasu/onedark.nvim' -- Modern Lua-based Onedark theme
 end)
 
+-- Theme settings
+vim.cmd('syntax enable')    -- Enable syntax highlighting
+vim.o.termguicolors = true  -- Enable true color support
+vim.cmd('colorscheme onedark') -- Set the colorscheme
+
+-- Set the Airline theme
+vim.g.airline_theme = 'onedark'
+
+-- Set the Tmuxline theme
+vim.g.tmuxline_theme = 'powerline'
 vim.cmd('source ~/.config/nvim/init.vim')
 
 
@@ -65,7 +85,7 @@ require'nvim-treesitter.configs'.setup {
 
     -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
     disable = function(lang, buf)
-        local max_filesize = 100 * 1024 -- 100 KB
+        local max_filesize = 400 * 1024 -- 400 KB
         local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
         if ok and stats and stats.size > max_filesize then
             return true
@@ -76,7 +96,7 @@ require'nvim-treesitter.configs'.setup {
     -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
     -- Using this option may slow down your editor, and you may see some duplicate highlights.
     -- Instead of true it can also be a list of languages
-    additional_vim_regex_highlighting = { "elixir" },
+    additional_vim_regex_highlighting = false,
   },
 }
 local lspconfig = require('lspconfig')
@@ -86,7 +106,7 @@ lspconfig.elixirls.setup({
   cmd = { "/Users/nathan/coding/elixir-ls/release/language_server.sh" }, -- Update this path
   settings = {
     elixirLS = {
-      dialyzerEnabled = true,
+      dialyzerEnabled = false,
       fetchDeps = false,
     },
   },
@@ -96,7 +116,7 @@ lspconfig.elixirls.setup({
       vim.api.nvim_create_autocmd("BufWritePre", {
         buffer = bufnr,
         callback = function()
-          vim.lsp.buf.format({ async = false })
+          vim.lsp.buf.format({ async = true })
         end,
       })
     end
@@ -146,3 +166,26 @@ end, { desc = 'Close Neo-tree' })
 -- Toggle comments for the current line or selection
 vim.keymap.set('n', '<leader>cs', '<Plug>(comment_toggle_linewise_current)', { desc = 'Toggle comment' })
 vim.keymap.set('x', '<leader>cs', '<Plug>(comment_toggle_linewise_visual)', { desc = 'Toggle comment in visual mode' })
+
+-- Import and configure navigator.lua
+require('navigator').setup({
+    -- Optional configuration options
+    border = 'rounded',  -- LSP UI border style
+    debug = false,       -- Enable debug output
+    transparency = 100,   -- Transparency for floating windows (0-100)
+    default_mapping = false, -- Set up default key mappings
+    lsp = {
+        colors = {
+            diagnostic_virtual_text = "Comment",      -- Use Comment highlight group for diagnostics
+            diagnostic_float_border = "FloatBorder", -- Use FloatBorder for diagnostics' floating borders
+        },
+        enable = true,    -- Enable built-in LSP configuration
+        diagnostic = {
+            virtual_text = true, -- Show virtual text for diagnostics
+        },
+    },
+})
+
+vim.keymap.set('n', 'gr', function() require('navigator.reference').async_ref() end, { desc = 'Find references', noremap = true, silent = true })
+-- Highlight on navigator was off coloured
+vim.api.nvim_set_hl(0, 'GuihuaListSelHl', { fg = '#282c34', bg = '#87d1da', bold = true }) -- Light teal background

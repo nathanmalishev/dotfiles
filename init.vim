@@ -15,12 +15,9 @@ let mapleader="\<Space>"
 
 call plug#begin('~/.local/share/nvim/plugged')
 
-" new color theme
-Plug 'joshdick/onedark.vim'
-
 Plug 'easymotion/vim-easymotion'
 
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 
 " call tmux from vim
@@ -65,35 +62,11 @@ omap / <Plug>(easymotion-tn)
 
 " jsdocs
 let g:javascript_plugin_jsdoc = 1
-
 "
-" Theme
-syntax enable
-set termguicolors
-" in your .vimrc or init.vim
-" if you use airline / lightline
- colorscheme onedark
-
-" default theme
-let g:airline_theme='onedark' "  deus
-let g:tmuxline_theme='powerline'
-"let g:airline#extensions#tmuxline#enabled = 0
-
 " set the way splits open - more natural from right and bottom
 set splitbelow
 set splitright
-
-" bind some gitfugitive commands
-map <Leader>gs :G status<CR>
-map <Leader>ge :G edit<CR>
-map <Leader>ggp :!git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD)<CR>
-map <Leader>gp :G push<CR>
-map <Leader>gl :G log<CR>
-map <Leader>gd :G diff<CR>
-map <Leader>gc :G commit<CR>
-
-command! Greview :Git! diff --staged
-nnoremap <leader>gr :Greview<cr>
+"
 
 " bind crtl-, to inspect VimuxInspectRunner
 nmap <C-l> :VimuxInspectRunner<CR>
@@ -223,8 +196,3 @@ set foldmethod=indent
 set nofoldenable        "dont fold by default
 set foldlevel=1
 set foldnestmax=10
-
-"FileType elixir imap <C-f> :set foldlevel=1
-
-"" filetype for surface - elixir component lib
-autocmd BufNewFile,BufRead *.sface set ft=elixir
