@@ -16,20 +16,10 @@ let mapleader="\<Space>"
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'easymotion/vim-easymotion'
-
-" Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-
-" call tmux from vim
 Plug 'benmills/vimux'
-
 Plug 'airblade/vim-gitgutter'
 
-" snips
-Plug 'MarcWeber/vim-addon-mw-utils'
-Plug 'tomtom/tlib_vim'
-
-Plug 'tpope/vim-abolish'
 call plug#end()
 
 
