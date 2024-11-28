@@ -18,7 +18,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-surround'
 Plug 'benmills/vimux'
-Plug 'airblade/vim-gitgutter'
+" Plug 'airblade/vim-gitgutter'
 
 call plug#end()
 

@@ -51,6 +51,7 @@ require('packer').startup(function(use)
     })
 
     use 'navarasu/onedark.nvim' -- Modern Lua-based Onedark theme
+    use 'lewis6991/gitsigns.nvim' -- Modern Lua-based Onedark theme
 end)
 
 -- Theme settings
@@ -103,11 +104,11 @@ local lspconfig = require('lspconfig')
 
 -- Configure the ElixirLS Language Server
 lspconfig.elixirls.setup({
-  cmd = { "/Users/nathan/coding/elixir-ls/release/language_server.sh" }, -- Update this path
+  cmd = { "/Users/nathan/coding/elixir-ls/release/language_server.sh"}, -- Update this path
   settings = {
     elixirLS = {
       dialyzerEnabled = false,
-      fetchDeps = false,
+      fetchDeps = false
     },
   },
    on_attach = function(client, bufnr)
@@ -116,7 +117,7 @@ lspconfig.elixirls.setup({
       vim.api.nvim_create_autocmd("BufWritePre", {
         buffer = bufnr,
         callback = function()
-          vim.lsp.buf.format({ async = true })
+          vim.lsp.buf.format({ async = false })
         end,
       })
     end
@@ -144,10 +145,26 @@ vim.keymap.set('n', '<C-g>', builtin.live_grep, { desc = 'Telescope live grep' }
 vim.keymap.set('n', '<leader>fg', builtin.git_files, { desc = 'Telescope git files' })
 vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
+-- Keymap for finding the word under the cursor
+vim.keymap.set('n', '<leader>fw', function()
+  builtin.live_grep({ default_text = vim.fn.expand('<cword>') })
+end, { desc = 'Telescope search for word under cursor' })
+vim.keymap.set('n', '<leader>fd', function()
+  local word = vim.fn.expand('<cword>')
+  builtin.live_grep({ default_text = "def " .. word })
+end, { desc = 'Telescope search for "def <cword>"' })
 
 
 -- Lua configuration for Neovim with Neo-tree
-
+require("neo-tree").setup({
+    default_component_configs = {
+        diagnostics = {
+            symbols = {
+                warn = "W",
+            },
+        },
+    },
+})
 -- Toggle Neo-tree with <C-m>
 vim.keymap.set('n', '<C-m>', function()
   vim.cmd('Neotree toggle')
@@ -175,13 +192,25 @@ require('navigator').setup({
     transparency = 100,   -- Transparency for floating windows (0-100)
     default_mapping = false, -- Set up default key mappings
     lsp = {
+        diagnostic_virtual_text = false,
         colors = {
             diagnostic_virtual_text = "Comment",      -- Use Comment highlight group for diagnostics
             diagnostic_float_border = "FloatBorder", -- Use FloatBorder for diagnostics' floating borders
         },
-        enable = true,    -- Enable built-in LSP configuration
+        format_on_save = false, -- could never get it working
+        enable = false,    -- Enable built-in LSP configuration
         diagnostic = {
-            virtual_text = true, -- Show virtual text for diagnostics
+          underline = true,
+          virtual_text = true, -- show virtual for diagnostic message
+          update_in_insert = false, -- update diagnostic message in insert mode
+          float = {                 -- setup for floating windows style
+            focusable = false,
+            sytle = 'minimal',
+            border = 'rounded',
+            source = 'always',
+            header = '',
+            prefix = '',
+          },
         },
     },
 })
@@ -189,3 +218,10 @@ require('navigator').setup({
 vim.keymap.set('n', 'gr', function() require('navigator.reference').async_ref() end, { desc = 'Find references', noremap = true, silent = true })
 -- Highlight on navigator was off coloured
 vim.api.nvim_set_hl(0, 'GuihuaListSelHl', { fg = '#282c34', bg = '#87d1da', bold = true }) -- Light teal background
+
+
+-- Set diagnostic keymaps
+vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic" })
+vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
+
+require('gitsigns').setup()
