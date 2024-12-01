@@ -52,6 +52,17 @@ require('packer').startup(function(use)
 
     use 'navarasu/onedark.nvim' -- Modern Lua-based Onedark theme
     use 'lewis6991/gitsigns.nvim' -- Modern Lua-based Onedark theme
+    use {
+      'folke/todo-comments.nvim',
+      requires = { 'nvim-lua/plenary.nvim' },
+      config = function()
+        require('todo-comments').setup()
+      end
+    }
+
+    use 'Isrothy/neominimap.nvim'
+    use {"shortcuts/no-neck-pain.nvim", tag = "*" }
+    use "sindrets/diffview.nvim" 
 end)
 
 -- Theme settings
@@ -142,6 +153,7 @@ vim.keymap.set('n', 'gd', builtin.lsp_definitions, { noremap = true, silent = tr
 
 vim.keymap.set('n', '<C-p>', builtin.find_files, { desc = 'Telescope find files' })
 vim.keymap.set('n', '<C-g>', builtin.live_grep, { desc = 'Telescope live grep' })
+vim.keymap.set("n", "<leader>fn", "<cmd>Telescope diagnostics<CR>", { desc = "LSP Diagnostics" })
 vim.keymap.set('n', '<leader>fg', builtin.git_files, { desc = 'Telescope git files' })
 vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
@@ -225,3 +237,36 @@ vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous dia
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
 
 require('gitsigns').setup()
+
+vim.keymap.set("n", "<leader>qn", ":cnext<CR>", { desc = "Next quickfix item" })
+vim.keymap.set("n", "<leader>qp", ":cprev<CR>", { desc = "Previous quickfix item" })
+vim.keymap.set("n", "<leader>qo", ":copen<CR>", { desc = "Open quickfix list" })
+vim.keymap.set("n", "<leader>qc", ":cclose<CR>", { desc = "Close quickfix list" })
+
+
+vim.keymap.set("n", "<leader>nm", "<cmd>Neominimap toggle<CR>", { desc = "Toggle global minimap" })
+
+
+require("no-neck-pain").setup({
+    -- The width of the focused window that will be centered. When the terminal width is less than the `width` option, the side buffers won't be created.
+    --- @type integer|"textwidth"|"colorcolumn"
+    width = 200,
+  })
+
+local actions = require("diffview.actions")
+vim.keymap.set(
+  "n",                                   
+  "<leader>go",                          
+  function()
+    vim.cmd("DiffviewOpen")
+  end,
+  {  desc = "Open the file panel." } 
+)
+vim.keymap.set(
+  "n",                                   
+  "<leader>gc",                          
+  function()
+    vim.cmd("DiffviewClose")
+  end,
+  {  desc = "Close the file panel." } 
+)
