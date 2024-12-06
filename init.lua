@@ -42,14 +42,6 @@ require('packer').startup(function(use)
       end
     }
 
-    use({
-        'ray-x/navigator.lua',
-        requires = {
-            { 'ray-x/guihua.lua', run = 'cd lua/fzy && make' },
-            { 'neovim/nvim-lspconfig' },
-        },
-    })
-
     use 'navarasu/onedark.nvim' -- Modern Lua-based Onedark theme
     use 'lewis6991/gitsigns.nvim' -- Modern Lua-based Onedark theme
     use {
@@ -62,7 +54,18 @@ require('packer').startup(function(use)
 
     use 'Isrothy/neominimap.nvim'
     use {"shortcuts/no-neck-pain.nvim", tag = "*" }
-    use "sindrets/diffview.nvim" 
+
+          use {
+            'NeogitOrg/neogit',
+            requires = {
+              "nvim-lua/plenary.nvim",
+              "echasnovski/mini.pick",
+              "sindrets/diffview.nvim" 
+            }, -- Neogit depends on plenary.nvim
+            config = function()
+              require('neogit').setup {}
+              end
+          }
 end)
 
 -- Theme settings
@@ -126,7 +129,7 @@ lspconfig.elixirls.setup({
     -- Enable formatting on save
     if client.server_capabilities.documentFormattingProvider then
       vim.api.nvim_create_autocmd("BufWritePre", {
-        buffer = bufnr,
+        buffer = buffer,
         callback = function()
           vim.lsp.buf.format({ async = false })
         end,
@@ -134,6 +137,26 @@ lspconfig.elixirls.setup({
     end
   end,
 })
+
+lspconfig.ts_ls.setup({
+    on_attach = function(client, bufnr)
+        -- Optionally disable tsserver formatting to avoid conflicts
+         client.server_capabilities.documentFormattingProvider = true
+         client.server_capabilities.documentRangeFormattingProvider = true
+           -- Auto-format on save
+        -- Auto-format on save
+        vim.api.nvim_create_autocmd("BufWritePre", {
+            buffer = buffer,
+            callback = function()
+              vim.lsp.buf.format({
+                      async = false, -- Make sure this matches your preference
+                  })
+            end,
+        })
+    end,
+    root_dir = require('lspconfig.util').root_pattern("package.json", "tsconfig.json", ".git"),
+})
+
 require('telescope').setup {
   extensions = {
     fzf = {
@@ -150,6 +173,7 @@ require('telescope').load_extension('fzf')
 
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', 'gd', builtin.lsp_definitions, { noremap = true, silent = true })
+vim.keymap.set('n', 'gDs', function() vim.cmd('vsplit') vim.lsp.buf.definition() end, { noremap = true, silent = true })
 
 vim.keymap.set('n', '<C-p>', builtin.find_files, { desc = 'Telescope find files' })
 vim.keymap.set('n', '<C-g>', builtin.live_grep, { desc = 'Telescope live grep' })
@@ -157,6 +181,11 @@ vim.keymap.set("n", "<leader>fn", "<cmd>Telescope diagnostics<CR>", { desc = "LS
 vim.keymap.set('n', '<leader>fg', builtin.git_files, { desc = 'Telescope git files' })
 vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
+
+vim.keymap.set('n', 'gr', function()
+  builtin.lsp_references()
+end, { desc = 'Find references with Telescope', noremap = true, silent = true })
+
 -- Keymap for finding the word under the cursor
 vim.keymap.set('n', '<leader>fw', function()
   builtin.live_grep({ default_text = vim.fn.expand('<cword>') })
@@ -195,42 +224,7 @@ end, { desc = 'Close Neo-tree' })
 -- Toggle comments for the current line or selection
 vim.keymap.set('n', '<leader>cs', '<Plug>(comment_toggle_linewise_current)', { desc = 'Toggle comment' })
 vim.keymap.set('x', '<leader>cs', '<Plug>(comment_toggle_linewise_visual)', { desc = 'Toggle comment in visual mode' })
-
--- Import and configure navigator.lua
-require('navigator').setup({
-    -- Optional configuration options
-    border = 'rounded',  -- LSP UI border style
-    debug = false,       -- Enable debug output
-    transparency = 100,   -- Transparency for floating windows (0-100)
-    default_mapping = false, -- Set up default key mappings
-    lsp = {
-        diagnostic_virtual_text = false,
-        colors = {
-            diagnostic_virtual_text = "Comment",      -- Use Comment highlight group for diagnostics
-            diagnostic_float_border = "FloatBorder", -- Use FloatBorder for diagnostics' floating borders
-        },
-        format_on_save = false, -- could never get it working
-        enable = false,    -- Enable built-in LSP configuration
-        diagnostic = {
-          underline = true,
-          virtual_text = true, -- show virtual for diagnostic message
-          update_in_insert = false, -- update diagnostic message in insert mode
-          float = {                 -- setup for floating windows style
-            focusable = false,
-            sytle = 'minimal',
-            border = 'rounded',
-            source = 'always',
-            header = '',
-            prefix = '',
-          },
-        },
-    },
-})
-
-vim.keymap.set('n', 'gr', function() require('navigator.reference').async_ref() end, { desc = 'Find references', noremap = true, silent = true })
--- Highlight on navigator was off coloured
 vim.api.nvim_set_hl(0, 'GuihuaListSelHl', { fg = '#282c34', bg = '#87d1da', bold = true }) -- Light teal background
-
 
 -- Set diagnostic keymaps
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic" })
