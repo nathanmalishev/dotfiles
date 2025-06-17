@@ -109,3 +109,5 @@ export FZF_BASE=/usr/local/bin/fzf
 [[ -f /Users/nathan/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/nathan/.config/yarn/global/node_modules/tabtab/.completions/sls.zsh
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+export PATH="$HOME/.asdf/installs/python/3.12.6/bin:$PATH"
+

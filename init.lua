@@ -52,20 +52,26 @@ require('packer').startup(function(use)
       end
     }
 
-    use 'Isrothy/neominimap.nvim'
     use {"shortcuts/no-neck-pain.nvim", tag = "*" }
 
-          use {
-            'NeogitOrg/neogit',
-            requires = {
-              "nvim-lua/plenary.nvim",
-              "echasnovski/mini.pick",
-              "sindrets/diffview.nvim" 
-            }, -- Neogit depends on plenary.nvim
-            config = function()
-              require('neogit').setup {}
-              end
-          }
+    use {
+      'NeogitOrg/neogit',
+      requires = {
+        "nvim-lua/plenary.nvim",
+        "echasnovski/mini.pick",
+        "sindrets/diffview.nvim" 
+      }, -- Neogit depends on plenary.nvim
+      config = function()
+        require('neogit').setup {}
+      end
+    }
+    use {
+      "folke/trouble.nvim",
+      cmd = "Trouble",
+      config = function()
+        require("trouble").setup {}
+      end
+    }
 end)
 
 -- Theme settings
@@ -129,9 +135,9 @@ lspconfig.elixirls.setup({
     -- Enable formatting on save
     if client.server_capabilities.documentFormattingProvider then
       vim.api.nvim_create_autocmd("BufWritePre", {
-        buffer = buffer,
+        buffer = bufnr,
         callback = function()
-          vim.lsp.buf.format({ async = false })
+          vim.lsp.buf.format({ async = false, timeout_ms = 5000 })
         end,
       })
     end
@@ -236,10 +242,6 @@ vim.keymap.set("n", "<leader>qn", ":cnext<CR>", { desc = "Next quickfix item" })
 vim.keymap.set("n", "<leader>qp", ":cprev<CR>", { desc = "Previous quickfix item" })
 vim.keymap.set("n", "<leader>qo", ":copen<CR>", { desc = "Open quickfix list" })
 vim.keymap.set("n", "<leader>qc", ":cclose<CR>", { desc = "Close quickfix list" })
-
-
-vim.keymap.set("n", "<leader>nm", "<cmd>Neominimap toggle<CR>", { desc = "Toggle global minimap" })
-
 
 require("no-neck-pain").setup({
     -- The width of the focused window that will be centered. When the terminal width is less than the `width` option, the side buffers won't be created.
