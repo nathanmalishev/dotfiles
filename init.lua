@@ -183,10 +183,12 @@ vim.keymap.set('n', 'gDs', function() vim.cmd('vsplit') vim.lsp.buf.definition()
 
 vim.keymap.set('n', '<C-p>', builtin.find_files, { desc = 'Telescope find files' })
 vim.keymap.set('n', '<C-g>', builtin.live_grep, { desc = 'Telescope live grep' })
-vim.keymap.set("n", "<leader>fn", "<cmd>Telescope diagnostics<CR>", { desc = "LSP Diagnostics" })
 vim.keymap.set('n', '<leader>fg', builtin.git_files, { desc = 'Telescope git files' })
 vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
+
+vim.keymap.set("n", "<leader>fn", "<cmd>Telescope diagnostics<CR>", { desc = "LSP Diagnostics" })
+vim.keymap.set("n", "<leader>fo", vim.diagnostic.open_float, { desc = "Show diagnostic" })
 
 vim.keymap.set('n', 'gr', function()
   builtin.lsp_references()
