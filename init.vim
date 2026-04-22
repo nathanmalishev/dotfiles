@@ -80,9 +80,18 @@ autocmd FileType javascript.jsx map <Leader>t :VimuxPromptCommand("yarn test")<C
 autocmd FileType javascript.jsx map <Leader>T :VimuxPromptCommand("yarn lint")<CR><CR>
 autocmd FileType go map <Leader>r :VimuxPromptCommand("go run -race *.go")<CR><CR>
 autocmd FileType go map <Leader>t :VimuxPromptCommand("go test")<CR><CR>
+" Run all tests
 autocmd FileType elixir map <Leader>t :VimuxPromptCommand("mix test lib")<CR><CR>
+" Run failed tests
 autocmd FileType elixir map <Leader>tf :VimuxPromptCommand("mix test lib --failed")<CR><CR>
-autocmd FileType elixir map <Leader>T :VimuxPromptCommand("mix credo")<CR><CR>
+" Run credo
+autocmd FileType elixir map <Leader>tc :VimuxPromptCommand("mix credo --all")<CR><CR>
+" Run tests for the current folder
+autocmd FileType elixir map <Leader>td :VimuxRunCommand("mix test " . expand("%:h"))<CR>
+" Run tests for the current file
+autocmd FileType elixir map <Leader>ta :VimuxRunCommand("mix test " . expand("%"))<CR>
+" Run tests for the current file at the current line (specific test)
+autocmd FileType elixir map <Leader>tl :VimuxRunCommand("mix test " . expand("%") . ":" . line("."))<CR>
 
 
 set clipboard=unnamed

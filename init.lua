@@ -200,8 +200,17 @@ vim.keymap.set('n', '<leader>fw', function()
 end, { desc = 'Telescope search for word under cursor' })
 vim.keymap.set('n', '<leader>fd', function()
   local word = vim.fn.expand('<cword>')
-  builtin.live_grep({ default_text = "def " .. word })
-end, { desc = 'Telescope search for "def <cword>"' })
+  -- The regex ^defp? matches "def" or "defp" at the start of a word
+  local pattern = "defp? " .. word
+  
+  builtin.live_grep({ 
+    default_text = pattern,
+    -- Ensure Telescope passes the string as a regex
+    additional_args = function()
+      return { "--pcre2" } -- Optional: helpful if you use complex regex
+    end
+  })
+end, { desc = 'Search for def/defp <cword>' })
 
 
 -- Lua configuration for Neovim with Neo-tree
@@ -240,6 +249,7 @@ vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnos
 
 require('gitsigns').setup()
 
+-- crtl-q  sends telescope list to diagonstics
 vim.keymap.set("n", "<leader>qn", ":cnext<CR>", { desc = "Next quickfix item" })
 vim.keymap.set("n", "<leader>qp", ":cprev<CR>", { desc = "Previous quickfix item" })
 vim.keymap.set("n", "<leader>qo", ":copen<CR>", { desc = "Open quickfix list" })
@@ -268,3 +278,5 @@ vim.keymap.set(
   end,
   {  desc = "Close the file panel." } 
 )
+
+vim.lsp.set_log_level("ERROR")
