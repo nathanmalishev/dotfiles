@@ -6,15 +6,16 @@ require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
-    -- Add nvim-treesitter with automatic parser updates
-    use {
-        'nvim-treesitter/nvim-treesitter',
-        run = ':TSUpdate' -- Run :TSUpdate after installation
-    }
-
     -- Add other plugins here as needed
 
-    use 'neovim/nvim-lspconfig'
+    use {
+        'neovim/nvim-lspconfig',
+        config = function()
+            -- This is where the plugin initializes. 
+            -- If this isn't here, the commands won't exist.
+            require('lspconfig') 
+        end
+    }
 
     use {
       'nvim-telescope/telescope.nvim',
@@ -72,10 +73,17 @@ require('packer').startup(function(use)
         require("trouble").setup {}
       end
     }
+    use {
+      'roerohan/mark.nvim',
+      ft = 'markdown',
+      run = 'cd typescript && bun install && bun run build',
+      config = function()
+        require('mark').setup()
+      end,
+    }
 end)
 
 -- Theme settings
-vim.cmd('syntax enable')    -- Enable syntax highlighting
 vim.o.termguicolors = true  -- Enable true color support
 vim.cmd('colorscheme onedark') -- Set the colorscheme
 
@@ -87,80 +95,49 @@ vim.g.tmuxline_theme = 'powerline'
 vim.cmd('source ~/.config/nvim/init.vim')
 
 
-require'nvim-treesitter.configs'.setup {
-  -- A list of parser names, or "all" (the listed parsers MUST always be installed)
-  ensure_installed = { "elixir", "vim", "vimdoc", "markdown", "markdown_inline", "heex", "html" },
-
-  -- Install parsers synchronously (only applied to `ensure_installed`)
-  sync_install = false,
-
-  -- Automatically install missing parsers when entering buffer
-  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-  auto_install = true,
-
-  ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
-  -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
-
-  highlight = {
-    enable = true,
-
-    -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
-    disable = function(lang, buf)
-        local max_filesize = 400 * 1024 -- 400 KB
-        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-        if ok and stats and stats.size > max_filesize then
-            return true
-        end
-    end,
-
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
-    additional_vim_regex_highlighting = false,
-  },
-}
-local lspconfig = require('lspconfig')
-
--- Configure the ElixirLS Language Server
-lspconfig.elixirls.setup({
-  cmd = { "/Users/nathan/coding/elixir-ls/release/language_server.sh"}, -- Update this path
+-- Configure servers (Do this once)
+vim.lsp.config("elixirls", {
+  cmd = { "/Users/nathan/coding/elixir-ls/release/language_server.sh" },
+  root_markers = { "mix.exs", ".git" },
   settings = {
-    elixirLS = {
-      dialyzerEnabled = false,
-      fetchDeps = false
+      elixirLS = {
+        dialyzerEnabled = false,
+      },
     },
-  },
-   on_attach = function(client, bufnr)
-    -- Enable formatting on save
-    if client.server_capabilities.documentFormattingProvider then
+})
+
+vim.lsp.config("ts_ls", {
+  root_markers = { "package.json", "tsconfig.json", ".git" },
+})
+
+-- Enable servers (This triggers the start logic)
+vim.lsp.enable({"elixirls", "ts_ls"})
+
+-- Automatically start Treesitter for Elixir files
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = {"elixir", "eelixir", "heex"},
+  callback = function()
+    vim.treesitter.start()
+  end,
+})
+-- Diagnostic/Formatting Attach
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if client and client.server_capabilities.documentFormattingProvider then
       vim.api.nvim_create_autocmd("BufWritePre", {
-        buffer = bufnr,
+        buffer = args.buf,
         callback = function()
-          vim.lsp.buf.format({ async = false, timeout_ms = 5000 })
+          vim.lsp.buf.format({ bufnr = args.buf, async = false, timeout_ms = 5000 })
         end,
       })
     end
   end,
 })
-
-lspconfig.ts_ls.setup({
-    on_attach = function(client, bufnr)
-        -- Optionally disable tsserver formatting to avoid conflicts
-         client.server_capabilities.documentFormattingProvider = true
-         client.server_capabilities.documentRangeFormattingProvider = true
-           -- Auto-format on save
-        -- Auto-format on save
-        vim.api.nvim_create_autocmd("BufWritePre", {
-            buffer = buffer,
-            callback = function()
-              vim.lsp.buf.format({
-                      async = false, -- Make sure this matches your preference
-                  })
-            end,
-        })
-    end,
-    root_dir = require('lspconfig.util').root_pattern("package.json", "tsconfig.json", ".git"),
+vim.diagnostic.config({
+  virtual_text = true,
+  signs = true,
+  underline = true,
 })
 
 require('telescope').setup {
@@ -222,11 +199,16 @@ require("neo-tree").setup({
             },
         },
     },
+    source_selector = {
+          winbar = true, -- Add a tab bar at the top
+          statusline = false,
+      },
 })
 -- Toggle Neo-tree with <C-m>
 vim.keymap.set('n', '<C-m>', function()
   vim.cmd('Neotree toggle')
 end, { desc = 'Toggle Neo-tree' })
+
 
 -- Find the current file in Neo-tree with <C-n>
 vim.keymap.set('n', '<C-n>', function()
@@ -279,4 +261,3 @@ vim.keymap.set(
   {  desc = "Close the file panel." } 
 )
 
-vim.lsp.set_log_level("ERROR")

@@ -110,3 +110,5 @@ export FZF_BASE=/usr/local/bin/fzf
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
+
+. "$HOME/.local/bin/env"
