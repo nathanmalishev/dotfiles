@@ -112,3 +112,15 @@ export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
 
 . "$HOME/.local/bin/env"
+# lean-ctx shell hook — begin
+if [ -f "/Users/nathan/.config/lean-ctx/shell-hook.zsh" ]; then
+. "/Users/nathan/.config/lean-ctx/shell-hook.zsh"
+fi
+# lean-ctx shell hook — end
+
+# >>> lean-ctx agent aliases >>>
+alias claude='LEAN_CTX_AGENT=1 BASH_ENV="$HOME/.bashenv" claude'
+alias codebuddy='LEAN_CTX_AGENT=1 BASH_ENV="$HOME/.bashenv" codebuddy'
+alias codex='LEAN_CTX_AGENT=1 BASH_ENV="$HOME/.bashenv" codex'
+alias gemini='LEAN_CTX_AGENT=1 BASH_ENV="$HOME/.bashenv" gemini'
+# <<< lean-ctx agent aliases <<<
